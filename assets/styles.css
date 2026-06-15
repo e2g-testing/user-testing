@@ -235,6 +235,64 @@ svg {
   font-weight: 700;
 }
 
+.getting-started-card--responsive,
+.responsive-course-tabs,
+.responsive-side-cards {
+  display: none;
+}
+
+.responsive-course-tabs {
+  height: 44px;
+  gap: 8px;
+  padding: 4px;
+  border: 1px solid #f2f4f7;
+  border-radius: 8px;
+  background: #f9fafb;
+}
+
+.responsive-course-tabs a {
+  min-width: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  color: #667085;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.responsive-course-tabs a[aria-current="page"] {
+  background: #ffffff;
+  color: #344054;
+  box-shadow:
+    0 1px 3px rgba(16, 24, 40, 0.1),
+    0 1px 2px rgba(16, 24, 40, 0.06);
+}
+
+.responsive-side-card {
+  min-height: 136px;
+  padding: 16px;
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: var(--shadow);
+}
+
+.responsive-side-card h2 {
+  margin: 0 0 4px;
+  color: #344054;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.responsive-side-card p {
+  margin: 0;
+  color: #344054;
+  line-height: 1.45;
+}
+
 .main-content h1 {
   margin: 0 0 24px;
   font-size: 30px;
@@ -556,6 +614,10 @@ svg {
   gap: 24px;
 }
 
+.getting-started-card--responsive {
+  display: none;
+}
+
 .getting-started-card__copy {
   max-width: 650px;
 }
@@ -652,7 +714,7 @@ svg {
 
 .progress-steps {
   width: min(720px, 100%);
-  margin: 0 0 44px;
+  margin: 0 0 28px;
   padding: 0;
   list-style: none;
   display: grid;
@@ -663,7 +725,7 @@ svg {
   position: relative;
   display: grid;
   justify-items: center;
-  gap: 10px;
+  gap: 12px;
   color: #667085;
   font-size: 14px;
   font-weight: 700;
@@ -673,9 +735,9 @@ svg {
 .progress-steps li:not(:last-child)::after {
   content: "";
   position: absolute;
-  top: 16px;
-  left: calc(50% + 22px);
-  right: calc(-50% + 22px);
+  top: 11px;
+  left: calc(50% + 12px);
+  right: calc(-50% + 12px);
   height: 2px;
   background: #d0d5dd;
 }
@@ -687,20 +749,29 @@ svg {
 .progress-steps__marker {
   position: relative;
   z-index: 1;
-  width: 34px;
-  height: 34px;
+  width: 24px;
+  height: 24px;
   display: grid;
   place-items: center;
-  border: 2px solid #d0d5dd;
+  border: 0;
   border-radius: 50%;
-  background: #ffffff;
-  color: #667085;
+  background: #f2f4f7;
+  color: transparent;
+  font-size: 0;
   line-height: 1;
 }
 
+.progress-steps__marker::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #d0d5dd;
+}
+
 .progress-steps__marker svg {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
 }
 
 .progress-steps .is-current {
@@ -708,14 +779,21 @@ svg {
 }
 
 .progress-steps .is-current .progress-steps__marker {
-  border-color: var(--blue-700);
-  color: var(--blue-700);
+  background: #005584;
+  box-shadow: 0 0 0 4px #f4ebff;
+}
+
+.progress-steps .is-current .progress-steps__marker::before {
+  background: #ffffff;
 }
 
 .progress-steps .is-complete .progress-steps__marker {
-  border-color: var(--blue-700);
-  background: var(--blue-700);
+  background: #005584;
   color: #ffffff;
+}
+
+.progress-steps .is-complete .progress-steps__marker::before {
+  content: none;
 }
 
 .onboarding-panel {
@@ -771,6 +849,19 @@ svg {
   gap: 16px;
 }
 
+.onboarding-actions .button {
+  min-width: 200px;
+}
+
+.onboarding-actions--paired {
+  display: grid;
+  grid-template-columns: repeat(2, 200px);
+}
+
+.onboarding-actions--single .button {
+  width: 200px;
+}
+
 .text-button {
   margin-top: 18px;
   border: 0;
@@ -781,7 +872,7 @@ svg {
 }
 
 .goal-fieldset {
-  width: min(760px, 100%);
+  width: min(736px, 100%);
   margin: 34px auto 0;
   padding: 0;
   border: 0;
@@ -790,9 +881,9 @@ svg {
 .goal-fieldset legend {
   margin: 0 0 16px;
   color: #344054;
-  font-size: 16px;
-  font-weight: 700;
-  text-align: left;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
 }
 
 .goal-options {
@@ -820,45 +911,50 @@ svg {
 }
 
 .goal-other {
-  width: min(520px, 100%);
+  width: min(600px, 100%);
   margin: 24px auto 0;
   text-align: left;
 }
 
 .goal-other label {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   color: #344054;
+  font-size: 14px;
   font-weight: 700;
+  line-height: 20px;
 }
 
 .goal-other textarea {
   width: 100%;
-  min-height: 118px;
+  height: 72px;
+  min-height: 72px;
   padding: 12px 14px;
-  resize: vertical;
+  resize: none;
   border: 1px solid #d0d5dd;
   border-radius: 8px;
   background: #ffffff;
   color: #1d2939;
   font: inherit;
-  line-height: 1.5;
+  line-height: 24px;
 }
 
 .goal-other p {
-  margin: 8px 0 0;
+  margin: 6px 0 0;
   color: #667085;
-  font-size: 13px;
+  font-size: 14px;
+  line-height: 20px;
 }
 
 .support-card {
-  width: 100%;
+  width: min(718px, 100%);
   margin-top: 34px;
   padding: 24px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 260px;
-  gap: 28px;
+  grid-template-columns: minmax(0, 334px) minmax(280px, 320px);
+  gap: 16px;
   align-items: center;
+  justify-content: center;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #ffffff;
@@ -869,8 +965,9 @@ svg {
 .support-card h2 {
   margin: 0 0 18px;
   color: #344054;
-  font-size: 21px;
-  line-height: 1.35;
+  font-size: 20px;
+  line-height: 1.5;
+  font-weight: 400;
 }
 
 .support-categories {
@@ -878,39 +975,48 @@ svg {
   padding: 0;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  border-top: 1px solid #eaecf0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .support-categories li {
-  min-height: 66px;
+  min-height: 84px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 12px;
-  border-bottom: 1px solid #eaecf0;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 7px;
+  border-right: 1px solid #eaecf0;
   color: #344054;
+  text-align: center;
+}
+
+.support-categories li:last-child {
+  border-right: 0;
 }
 
 .support-categories span {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   display: grid;
   place-items: center;
-  border-radius: 50%;
-  background: #e7eff5;
   color: #006399;
   flex: 0 0 auto;
 }
 
 .support-categories svg {
-  width: 18px;
-  height: 18px;
+  width: 26px;
+  height: 26px;
+}
+
+.support-categories strong {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.25;
 }
 
 .consent-row {
-  margin-top: 22px;
-  padding-top: 22px;
-  border-top: 1px solid #eaecf0;
+  margin-top: 28px;
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 12px;
@@ -934,14 +1040,18 @@ svg {
 }
 
 .support-card__image {
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 320 / 343;
   display: grid;
   place-items: center;
 }
 
 .support-card__image img {
-  width: min(100%, 260px);
-  height: auto;
+  width: 100%;
+  height: 100%;
   display: block;
+  object-fit: contain;
 }
 
 .modal-backdrop {
@@ -1001,45 +1111,117 @@ svg {
 
 @media (max-width: 980px) {
   .site-header {
-    height: auto;
+    height: 69px;
   }
 
   .site-header__inner {
+    width: min(750px, calc(100% - 84px));
     min-height: 69px;
-    flex-wrap: wrap;
-    gap: 14px 22px;
-    padding: 12px 0;
+    flex-wrap: nowrap;
+    gap: 20px;
+  }
+
+  .top-nav,
+  .contact {
+    display: none;
   }
 
   .header-actions {
-    width: 100%;
-    margin-left: 0;
-    justify-content: space-between;
-  }
-
-  .contact {
-    min-height: auto;
+    width: auto;
+    margin-left: auto;
+    justify-content: flex-end;
+    gap: 12px;
   }
 
   .student-center__inner {
-    grid-template-columns: 1fr;
+    width: min(750px, calc(100% - 84px));
+    padding: 16px 0 48px;
+    display: block;
+  }
+
+  .side-rail,
+  .getting-started-card--desktop {
+    display: none;
+  }
+
+  .main-content h1 {
+    margin: 0;
+  }
+
+  .getting-started-card--responsive {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 16px 0 24px;
+  }
+
+  .getting-started-card--responsive .button {
+    width: auto;
+    min-width: 100px;
+  }
+
+  .getting-started-card h3 {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .getting-started-card p {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .responsive-course-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 0 0 24px;
+  }
+
+  .content-section {
+    margin-top: 0;
+  }
+
+  .content-section h2 {
+    margin-bottom: 18px;
+    font-size: 20px;
+  }
+
+  .responsive-side-cards {
+    display: grid;
     gap: 24px;
-    padding-top: 28px;
+    margin-top: 16px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
   }
 
-  .side-rail {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .onboarding-shell__inner {
+    width: min(750px, calc(100% - 84px));
+    padding: 16px 0 48px;
   }
 
-  .course-tabs {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .onboarding-panel h1 {
+    font-size: 30px;
+    line-height: 38px;
+    font-weight: 400;
+  }
+
+  .onboarding-lede {
+    max-width: 718px;
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .goal-fieldset {
+    margin-top: 32px;
   }
 
   .site-footer__inner {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: min(720px, calc(100% - 84px));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 36px;
   }
 
   .footer-legal {
+    grid-column: 1 / -1;
     padding-left: 0;
     border-left: 0;
   }
@@ -1050,38 +1232,66 @@ svg {
     font-size: 14px;
   }
 
+  .site-header__inner,
+  .student-center__inner,
+  .onboarding-shell__inner,
+  .site-footer__inner {
+    width: calc(100% - 32px);
+  }
+
+  .logo-mark {
+    width: 24px;
+    height: 24px;
+    border-width: 2px;
+    font-size: 18px;
+  }
+
   .logo-word {
-    font-size: 26px;
+    font-size: 22px;
   }
 
-  .top-nav {
-    order: 3;
-    width: 100%;
-    gap: 24px;
+  .header-actions > a {
+    font-size: 13px;
   }
 
-  .header-actions {
-    align-items: start;
-  }
-
-  .contact {
-    padding-left: 12px;
-  }
-
-  .side-rail {
-    grid-template-columns: 1fr;
-  }
-
-  .course-tabs {
-    grid-template-columns: 1fr;
+  .student-center__inner {
+    padding-top: 8px;
   }
 
   .main-content h1 {
-    font-size: 28px;
+    padding: 8px 0;
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .getting-started-card {
+    border-radius: 8px;
+    padding: 24px;
+  }
+
+  .getting-started-card--responsive {
+    align-items: stretch;
+    margin: 8px 0 24px;
+  }
+
+  .getting-started-card h3 {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .getting-started-card p {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .getting-started-card--responsive .button,
+  .responsive-side-card .side-link,
+  .decision-modal__actions .button {
+    width: 100%;
   }
 
   .course-card {
-    padding: 18px;
+    padding: 16px;
   }
 
   .course-card__header,
@@ -1094,8 +1304,28 @@ svg {
     justify-items: start;
   }
 
+  .course-card h3 {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
   .course-visual {
-    width: min(100%, 212px);
+    width: 100%;
+    height: auto;
+    aspect-ratio: 318 / 212;
+    background-size: 1965px 2798px;
+  }
+
+  .photo-pharmacy {
+    background-position: -624px -472px;
+  }
+
+  .photo-pet {
+    background-position: -624px -969px;
+  }
+
+  .photo-career {
+    background-position: -624px -1626px;
   }
 
   .button {
@@ -1103,48 +1333,8 @@ svg {
   }
 
   .course-card__actions {
+    display: grid;
     gap: 10px;
-  }
-
-  .site-footer {
-    padding: 48px 0;
-  }
-
-  .site-footer__inner,
-  .launcher-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 980px) {
-  .getting-started-card {
-    align-items: flex-start;
-  }
-
-  .support-card {
-    grid-template-columns: 1fr;
-  }
-
-  .support-card__image {
-    order: -1;
-  }
-
-  .support-card__image img {
-    width: min(220px, 100%);
-  }
-}
-
-@media (max-width: 720px) {
-  .getting-started-card {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 20px;
-  }
-
-  .getting-started-card .button,
-  .onboarding-actions .button,
-  .decision-modal__actions .button {
-    width: 100%;
   }
 
   .success-toast {
@@ -1152,49 +1342,129 @@ svg {
   }
 
   .onboarding-shell__inner {
-    padding: 34px 0 56px;
+    padding: 16px 0 48px;
   }
 
   .progress-steps {
-    margin-bottom: 34px;
+    width: 100%;
+    margin-bottom: 16px;
   }
 
   .progress-steps li {
     font-size: 12px;
   }
 
-  .progress-steps__marker {
-    width: 30px;
-    height: 30px;
-  }
-
   .progress-steps li:not(:last-child)::after {
-    top: 14px;
-    left: calc(50% + 20px);
-    right: calc(-50% + 20px);
+    left: calc(50% + 12px);
+    right: calc(-50% + 12px);
   }
 
   .onboarding-panel h1 {
-    font-size: 28px;
+    font-size: 24px;
+    line-height: 32px;
   }
 
   .onboarding-lede {
     font-size: 16px;
+    line-height: 24px;
   }
 
-  .goal-options,
-  .support-categories {
-    grid-template-columns: 1fr;
+  .video-frame {
+    width: min(329px, 100%);
+    margin-top: 32px;
+  }
+
+  .goal-fieldset {
+    margin-top: 24px;
+  }
+
+  .goal-fieldset legend {
+    margin-bottom: 16px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .goal-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 10px;
+  }
+
+  .goal-chip {
+    min-height: 44px;
+    padding: 0 10px;
+    white-space: normal;
+  }
+
+  .goal-other {
+    width: 100%;
   }
 
   .onboarding-actions {
     width: 100%;
-    flex-direction: column-reverse;
-    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .onboarding-actions .button {
+    min-width: 0;
+  }
+
+  .onboarding-actions--paired {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .onboarding-actions--single .button {
+    width: 200px;
   }
 
   .support-card {
-    padding: 20px;
+    width: 100%;
+    padding: 16px;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .support-card h2 {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .support-categories {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .support-categories li {
+    min-height: 82px;
+    padding: 0 4px;
+  }
+
+  .support-categories svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .support-categories strong {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .support-card__image {
+    order: 2;
+    max-width: 329px;
+    justify-self: center;
+  }
+
+  .support-card__image img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .site-footer {
+    padding: 36px 0;
+  }
+
+  .site-footer__inner,
+  .launcher-grid {
+    grid-template-columns: 1fr;
   }
 
   .modal-backdrop {

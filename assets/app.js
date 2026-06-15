@@ -351,24 +351,59 @@ function footer() {
   `;
 }
 
-function getStartedTile() {
+function getStartedTile(modifier = "", headingId = "getting-started-heading") {
   const ctaLabel =
     state.status === "in-progress"
       ? "Resume"
       : state.status === "complete"
         ? "Review"
         : "Get Started";
+  const classes = ["getting-started-card", modifier].filter(Boolean).join(" ");
 
   return `
-    <article class="getting-started-card" aria-labelledby="getting-started-heading">
+    <article class="${classes}" aria-labelledby="${headingId}">
       <div class="getting-started-card__copy">
-        <h3 id="getting-started-heading">Start Your Learning Experience</h3>
+        <h3 id="${headingId}">Start Your Learning Experience</h3>
         <p>Every journey starts with a strong beginning. Learn how the Student Center works, set a goal for yourself to help you stay motivated, and choose how you'd like to stay on track.</p>
       </div>
       <button class="button button--primary" type="button" data-action="start-onboarding">
         <span>${ctaLabel}</span>${icon("chevronRight")}
       </button>
     </article>
+  `;
+}
+
+function horizontalTabs(selected) {
+  return `
+    <nav class="responsive-course-tabs" aria-label="Course status">
+      ${courseTabs
+        .map((label) => {
+          const current = label === selected ? 'aria-current="page"' : "";
+          return `<a ${current} href="#courses-heading">${label}</a>`;
+        })
+        .join("")}
+    </nav>
+  `;
+}
+
+function responsiveSideCards() {
+  return `
+    <section class="responsive-side-cards" aria-label="Student Center support links">
+      <article class="responsive-side-card">
+        <div>
+          <h2>Career Resources</h2>
+          <p>Access resources to help you in your chosen career.</p>
+        </div>
+        <a href="#" class="side-link">${icon("briefcase")}<span>Virtual Career Center</span></a>
+      </article>
+      <article class="responsive-side-card">
+        <div>
+          <h2>Get Support</h2>
+          <p>Need help? We've got you covered.</p>
+        </div>
+        <a href="tel:18664415454" class="side-link">${icon("phone")}<span>Call Us: 1-866-441-5454</span></a>
+      </article>
+    </section>
   `;
 }
 
@@ -414,8 +449,10 @@ function progressStepper(activeStep) {
 }
 
 function onboardingActions({ showBack = false, nextLabel = "Next", nextAction = "next-step", nextDisabled = false }) {
+  const actionClass = showBack ? "onboarding-actions--paired" : "onboarding-actions--single";
+
   return `
-    <div class="onboarding-actions">
+    <div class="onboarding-actions ${actionClass}">
       ${
         showBack
           ? `<button class="button button--secondary" type="button" data-action="previous-step">${icon("chevronLeft")}<span>Back</span></button>`
@@ -569,10 +606,12 @@ function renderHome() {
         ${sideNav(data.selected)}
         <section class="main-content">
           <h1>Welcome, Jane!</h1>
+          ${getStartedTile("getting-started-card--responsive", "getting-started-heading-responsive")}
+          ${horizontalTabs(data.selected)}
           <section class="content-section" aria-labelledby="courses-heading">
             <h2 id="courses-heading">${data.eyebrow}</h2>
             ${intro}
-            ${getStartedTile()}
+            ${getStartedTile("getting-started-card--desktop")}
             <div class="card-stack">
               ${data.courses.map(courseCard).join("")}
             </div>
@@ -584,6 +623,7 @@ function renderHome() {
               ${data.resources.map(courseCard).join("")}
             </div>
           </section>
+          ${responsiveSideCards()}
         </section>
       </div>
     </main>
