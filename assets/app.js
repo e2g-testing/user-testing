@@ -1,8 +1,4 @@
-const paths = {
-  Current: "../prototype-a/",
-  Upcoming: "../prototype-b/",
-  Previous: "../prototype-c/",
-};
+const courseTabs = ["Current", "Upcoming", "Previous"];
 
 const icons = {
   launch:
@@ -77,110 +73,6 @@ const prototypes = {
       },
     ],
   },
-  upcoming: {
-    selected: "Upcoming",
-    eyebrow: "Upcoming Courses",
-    intro: "Courses appear here before your access window opens.",
-    courses: [
-      {
-        title: "Medical Billing and Coding (Voucher Included)",
-        school: "Blue Ridge Community College",
-        image: "photo-pharmacy",
-        imageLabel: "Healthcare learner in a pharmacy setting",
-        meta: [
-          ["Starts", "Jul 15 2026"],
-          ["Access Dates", "Jul 15 2026 - Mar 15 2027"],
-        ],
-        utility: { label: "Orientation", icon: "calendar" },
-        actions: [
-          { label: "View Details", icon: "search", primary: true },
-          { label: "Add Reminder", icon: "calendar" },
-          { label: "Course Support", icon: "support" },
-        ],
-      },
-      {
-        title: "Fundamentals of Technical Writing",
-        school: "Online Career Training",
-        image: "photo-career",
-        imageLabel: "Professional learner ready for class",
-        meta: [
-          ["Starts", "Aug 03 2026"],
-          ["Access Dates", "Aug 03 2026 - Nov 03 2026"],
-        ],
-        actions: [
-          { label: "View Details", icon: "search", primary: true },
-          { label: "Add Reminder", icon: "calendar" },
-          { label: "Course Support", icon: "support" },
-        ],
-      },
-    ],
-    resources: [
-      {
-        title: "Get Career Ready",
-        badge: "Available now",
-        image: "photo-career",
-        imageLabel: "Career resource preview",
-        meta: [["Access Dates", "Oct 31 2025 - Jul 31 2026"]],
-        actions: [
-          { label: "Launch", icon: "launch", primary: true },
-          { label: "Report", icon: "report" },
-          { label: "Course Support", icon: "support" },
-        ],
-      },
-    ],
-  },
-  previous: {
-    selected: "Previous",
-    eyebrow: "Previous Courses",
-    intro: "Completed courses and records stay available here.",
-    courses: [
-      {
-        title: "CompTIA A+ Certification Training",
-        school: "Blue Ridge Community College",
-        image: "photo-career",
-        imageLabel: "Completed learner record",
-        meta: [
-          ["Completed", "Jun 07 2026"],
-          ["Final Status", "Passed"],
-        ],
-        utility: { label: "Completed", icon: "certificate" },
-        actions: [
-          { label: "Certificate", icon: "certificate", primary: true },
-          { label: "Report", icon: "report" },
-          { label: "Course Support", icon: "support" },
-        ],
-      },
-      {
-        title: "Introduction to Microsoft Excel",
-        school: "Online Career Training",
-        image: "photo-pet",
-        imageLabel: "Learner course history preview",
-        meta: [
-          ["Completed", "Apr 29 2026"],
-          ["Final Status", "Completed"],
-        ],
-        actions: [
-          { label: "Certificate", icon: "certificate", primary: true },
-          { label: "Report", icon: "report" },
-          { label: "Course Support", icon: "support" },
-        ],
-      },
-    ],
-    resources: [
-      {
-        title: "Get Career Ready",
-        badge: "Optional",
-        image: "photo-career",
-        imageLabel: "Career resource card",
-        meta: [["Access Dates", "Oct 31 2025 - Jul 31 2026"]],
-        actions: [
-          { label: "Launch", icon: "launch", primary: true },
-          { label: "Report", icon: "report" },
-          { label: "Course Support", icon: "support" },
-        ],
-      },
-    ],
-  },
 };
 
 function icon(name) {
@@ -239,10 +131,10 @@ function sideNav(selected) {
       <section class="side-card side-card--nav">
         <h2>Your Courses</h2>
         <nav class="course-tabs" aria-label="Course status">
-          ${Object.entries(paths)
-            .map(([label, href]) => {
+          ${courseTabs
+            .map((label) => {
               const current = label === selected ? 'aria-current="page"' : "";
-              return `<a ${current} href="${href}">${label}</a>`;
+              return `<a ${current} href="#courses-heading">${label}</a>`;
             })
             .join("")}
         </nav>

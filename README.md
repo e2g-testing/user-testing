@@ -2,9 +2,9 @@
 
 Static GitHub Pages prototypes for Student Center user testing.
 
-- Prototype A: `https://cindycruzg.github.io/user-testing/prototype-a/`
-- Prototype B: `https://cindycruzg.github.io/user-testing/prototype-b/`
-- Prototype C: `https://cindycruzg.github.io/user-testing/prototype-c/`
+- Prototype A: `https://cindycruzg.github.io/user-testing/prototype-a/` - Student Home, Current Courses
+- Prototype B: `https://cindycruzg.github.io/user-testing/prototype-b/` - Student Home, Current Courses
+- Prototype C: `https://cindycruzg.github.io/user-testing/prototype-c/` - Student Home, Current Courses
 
 Local preview:
 
