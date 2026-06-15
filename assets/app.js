@@ -597,6 +597,13 @@ function optOutModal() {
 function renderHome() {
   const data = prototypes.current;
   const intro = data.intro ? `<p class="section-copy">${data.intro}</p>` : "";
+  const showGettingStarted = state.status !== "complete";
+  const responsiveGettingStarted = showGettingStarted
+    ? getStartedTile("getting-started-card--responsive", "getting-started-heading-responsive")
+    : "";
+  const desktopGettingStarted = showGettingStarted
+    ? getStartedTile("getting-started-card--desktop")
+    : "";
 
   appRoot.innerHTML = `
     ${state.showToast ? successToast() : ""}
@@ -606,12 +613,12 @@ function renderHome() {
         ${sideNav(data.selected)}
         <section class="main-content">
           <h1>Welcome, Jane!</h1>
-          ${getStartedTile("getting-started-card--responsive", "getting-started-heading-responsive")}
+          ${responsiveGettingStarted}
           ${horizontalTabs(data.selected)}
           <section class="content-section" aria-labelledby="courses-heading">
             <h2 id="courses-heading">${data.eyebrow}</h2>
             ${intro}
-            ${getStartedTile("getting-started-card--desktop")}
+            ${desktopGettingStarted}
             <div class="card-stack">
               ${data.courses.map(courseCard).join("")}
             </div>
