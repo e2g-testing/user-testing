@@ -367,7 +367,7 @@ function getStartedTile(modifier = "", headingId = "getting-started-heading") {
         <p>Every journey starts with a strong beginning. Learn how the Student Center works, set a goal for yourself to help you stay motivated, and choose how you'd like to stay on track.</p>
       </div>
       <button class="button button--primary" type="button" data-action="start-onboarding">
-        <span>${ctaLabel}</span>${icon("chevronRight")}
+        <span>${ctaLabel}</span>
       </button>
     </article>
   `;

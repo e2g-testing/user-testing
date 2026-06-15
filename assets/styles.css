@@ -605,13 +605,16 @@ svg {
   margin: 0 0 24px;
   padding: 24px;
   background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  box-shadow: 0 8px 18px rgba(16, 24, 40, 0.06);
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+  box-shadow:
+    0 1px 3px rgba(16, 24, 40, 0.1),
+    0 1px 2px rgba(16, 24, 40, 0.06);
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  overflow: hidden;
 }
 
 .getting-started-card--responsive {
@@ -619,21 +622,29 @@ svg {
 }
 
 .getting-started-card__copy {
-  max-width: 650px;
+  max-width: 762px;
 }
 
 .getting-started-card h3 {
-  margin: 0 0 8px;
-  color: #344054;
-  font-size: 20px;
-  line-height: 1.35;
+  margin: 0 0 4px;
+  color: #101828;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 600;
 }
 
 .getting-started-card p {
   margin: 0;
-  color: #344054;
-  font-size: 16px;
-  line-height: 1.5;
+  color: #394452;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.getting-started-card .button {
+  min-width: 100px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .button:disabled {
@@ -1265,12 +1276,12 @@ svg {
   }
 
   .getting-started-card {
-    border-radius: 8px;
+    border-radius: 12px;
     padding: 24px;
   }
 
   .getting-started-card--responsive {
-    align-items: stretch;
+    align-items: flex-start;
     margin: 8px 0 24px;
   }
 
@@ -1330,6 +1341,10 @@ svg {
 
   .button {
     width: 100%;
+  }
+
+  .getting-started-card .button {
+    width: auto;
   }
 
   .course-card__actions {
