@@ -17,10 +17,24 @@ const icons = {
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v2.4a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 1.4h2.4a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L7.7 8.9a16 16 0 0 0 6 6l1.1-1.1a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7a2 2 0 0 1 1.7 2z"/></svg>',
   search:
     '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>',
-  certificate:
-    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v12H5z"/><path d="M9 8h6"/><path d="M9 12h4"/><path d="M12 16v5l3-2 3 2v-5"/></svg>',
-  calendar:
-    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v15H5z"/><path d="M8 3v4"/><path d="M16 3v4"/><path d="M5 9h14"/></svg>',
+  chevronRight:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>',
+  chevronLeft:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>',
+  check:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>',
+  close:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>',
+  info:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>',
+  target:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v3"/><path d="M12 19v3"/><path d="M2 12h3"/><path d="M19 12h3"/></svg>',
+  milestone:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18"/><path d="M6 6h9l3 3-3 3H6"/></svg>',
+  bell:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9a6 6 0 0 1 12 0c0 7 3 6 3 8H3c0-2 3-1 3-8"/><path d="M10 21h4"/></svg>',
+  heart:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>',
 };
 
 const prototypes = {
@@ -75,8 +89,97 @@ const prototypes = {
   },
 };
 
+const prototypeConfig = {
+  a: {
+    storageKey: "ed2go-onboarding-prototype-a",
+    supportMode: "standard",
+  },
+  b: {
+    storageKey: "ed2go-onboarding-prototype-b",
+    supportMode: "modal",
+  },
+  c: {
+    storageKey: "ed2go-onboarding-prototype-c",
+    supportMode: "standard",
+  },
+  current: {
+    storageKey: "ed2go-onboarding-prototype-current",
+    supportMode: "standard",
+  },
+};
+
+const goalOptions = [
+  "Start a new career",
+  "Earn a certification",
+  "Change careers",
+  "Grow in my current role",
+  "Learn something new",
+  "Something else",
+];
+
+const goalCharacterLimit = 150;
+const appRoot = document.getElementById("app");
+const prototypeKey = document.body.dataset.prototype || "current";
+const config = prototypeConfig[prototypeKey] || prototypeConfig.current;
+
+const defaultState = {
+  view: "home",
+  status: "not-started",
+  step: 0,
+  goal: "",
+  otherReason: "",
+  supportOptIn: false,
+  showToast: false,
+  showOptOutModal: false,
+};
+
+let state = loadState();
+
 function icon(name) {
   return icons[name] || "";
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function loadState() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(config.storageKey));
+    return {
+      ...defaultState,
+      ...saved,
+      view: "home",
+      showToast: false,
+      showOptOutModal: false,
+    };
+  } catch {
+    return { ...defaultState };
+  }
+}
+
+function saveState() {
+  const { view, showToast, showOptOutModal, ...persistentState } = state;
+  localStorage.setItem(config.storageKey, JSON.stringify(persistentState));
+}
+
+function updateState(patch, options = {}) {
+  state = { ...state, ...patch };
+
+  if (options.persist !== false) {
+    saveState();
+  }
+
+  render();
+
+  if (options.scroll === true) {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }
 }
 
 function actionButton(action) {
@@ -248,12 +351,218 @@ function footer() {
   `;
 }
 
-function render() {
-  const key = document.body.dataset.prototype || "current";
-  const data = prototypes[key] || prototypes.current;
+function getStartedTile() {
+  const ctaLabel =
+    state.status === "in-progress"
+      ? "Resume"
+      : state.status === "complete"
+        ? "Review"
+        : "Get Started";
+
+  return `
+    <article class="getting-started-card" aria-labelledby="getting-started-heading">
+      <div class="getting-started-card__copy">
+        <h3 id="getting-started-heading">Start Your Learning Experience</h3>
+        <p>Every journey starts with a strong beginning. Learn how the Student Center works, set a goal for yourself to help you stay motivated, and choose how you'd like to stay on track.</p>
+      </div>
+      <button class="button button--primary" type="button" data-action="start-onboarding">
+        <span>${ctaLabel}</span>${icon("chevronRight")}
+      </button>
+    </article>
+  `;
+}
+
+function successToast() {
+  return `
+    <div class="success-toast" role="status" aria-live="polite">
+      <span class="success-toast__icon">${icon("check")}</span>
+      <div>
+        <strong>You're all set to start learning!</strong>
+        <p>Your goal and notifications are set. Update your notifications anytime in your profile.</p>
+      </div>
+      <button type="button" aria-label="Close notification" data-action="close-toast">${icon("close")}</button>
+    </div>
+  `;
+}
+
+function progressStepper(activeStep) {
+  const steps = ["Welcome", "Set a Goal", "Success Support"];
+
+  return `
+    <ol class="progress-steps" aria-label="Getting started progress">
+      ${steps
+        .map((label, index) => {
+          const statusClass =
+            index < activeStep
+              ? "is-complete"
+              : index === activeStep
+                ? "is-current"
+                : "";
+          const marker = index < activeStep ? icon("check") : index + 1;
+          const ariaCurrent = index === activeStep ? 'aria-current="step"' : "";
+
+          return `
+            <li class="${statusClass}" ${ariaCurrent}>
+              <span class="progress-steps__marker">${marker}</span>
+              <span>${label}</span>
+            </li>
+          `;
+        })
+        .join("")}
+    </ol>
+  `;
+}
+
+function onboardingActions({ showBack = false, nextLabel = "Next", nextAction = "next-step", nextDisabled = false }) {
+  return `
+    <div class="onboarding-actions">
+      ${
+        showBack
+          ? `<button class="button button--secondary" type="button" data-action="previous-step">${icon("chevronLeft")}<span>Back</span></button>`
+          : ""
+      }
+      <button class="button button--primary" type="button" data-action="${nextAction}" ${nextDisabled ? "disabled" : ""}>
+        <span>${nextLabel}</span>${nextLabel === "Next" ? icon("chevronRight") : ""}
+      </button>
+    </div>
+    <button class="text-button" type="button" data-action="finish-later">Finish this later</button>
+  `;
+}
+
+function welcomeStep() {
+  return `
+    <section class="onboarding-panel onboarding-panel--centered" aria-labelledby="welcome-title">
+      <h1 id="welcome-title">Welcome to ed2go, Jane!</h1>
+      <p class="onboarding-lede">Get familiar with the Student Center and learn how to access your courses, track your progress, and find the tools and resources you need to succeed.</p>
+      <div class="video-frame">
+        <video controls preload="metadata" src="../assets/ed2go-short-video-web.mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      ${onboardingActions({ nextLabel: "Next" })}
+    </section>
+  `;
+}
+
+function canAdvanceGoal() {
+  if (!state.goal) {
+    return false;
+  }
+
+  if (state.goal === "Something else") {
+    return state.otherReason.trim().length > 0 && state.otherReason.length <= goalCharacterLimit;
+  }
+
+  return true;
+}
+
+function goalStep() {
+  const remaining = Math.max(0, goalCharacterLimit - state.otherReason.length);
+  const showOther = state.goal === "Something else";
+
+  return `
+    <section class="onboarding-panel onboarding-panel--wide" aria-labelledby="goal-title">
+      <h1 id="goal-title">What are you hoping to achieve?</h1>
+      <p class="onboarding-lede">Share what you're hoping to accomplish so we can help you stay on track.</p>
+      <fieldset class="goal-fieldset">
+        <legend>What's your main reason for taking this course? (Select one)</legend>
+        <div class="goal-options">
+          ${goalOptions
+            .map((goal) => {
+              const selected = state.goal === goal ? "is-selected" : "";
+              return `<button class="goal-chip ${selected}" type="button" data-action="select-goal" data-goal="${goal}" aria-pressed="${state.goal === goal}">${goal}</button>`;
+            })
+            .join("")}
+        </div>
+      </fieldset>
+      ${
+        showOther
+          ? `<div class="goal-other">
+              <label for="goal-other">Tell us your main reason</label>
+              <textarea id="goal-other" data-goal-other maxlength="${goalCharacterLimit}" rows="5">${escapeHtml(state.otherReason)}</textarea>
+              <p data-goal-counter>${remaining} characters remaining</p>
+            </div>`
+          : ""
+      }
+      ${onboardingActions({ showBack: true, nextLabel: "Next", nextDisabled: !canAdvanceGoal() })}
+    </section>
+  `;
+}
+
+function supportCategories() {
+  const categories = [
+    ["Progress updates", "chart"],
+    ["Important milestones", "milestone"],
+    ["Upcoming deadlines", "bell"],
+    ["Support & resources", "heart"],
+  ];
+
+  return categories
+    .map(
+      ([label, iconName]) => `
+        <li>
+          <span>${icon(iconName)}</span>
+          <strong>${label}</strong>
+        </li>
+      `,
+    )
+    .join("");
+}
+
+function supportStep() {
+  const checked = state.supportOptIn ? "checked" : "";
+
+  return `
+    <section class="onboarding-panel onboarding-panel--wide" aria-labelledby="support-title">
+      <h1 id="support-title">Connect with Student Services</h1>
+      <p class="onboarding-lede">Unlock direct, personalized guidance from Student Services to help you stay on track and reach your goals.</p>
+      <div class="support-card">
+        <div class="support-card__copy">
+          <h2>Receive helpful messages about:</h2>
+          <ul class="support-categories">
+            ${supportCategories()}
+          </ul>
+          <label class="consent-row">
+            <input type="checkbox" data-action="toggle-support" ${checked}>
+            <span>Yes! Text me personalized support about my progress, important milestones, and deadlines.</span>
+          </label>
+          <p class="consent-fine-print">Message and data rates may apply. Message frequency varies. Reply STOP to opt-out, HELP for help. View our Privacy Policy and Terms of Service.</p>
+        </div>
+        <div class="support-card__image" aria-hidden="true">
+          <img src="../assets/student-services-phone.png" alt="">
+        </div>
+      </div>
+      ${onboardingActions({ showBack: true, nextLabel: "Finish", nextAction: "finish-support" })}
+    </section>
+  `;
+}
+
+function optOutModal() {
+  if (!state.showOptOutModal) {
+    return "";
+  }
+
+  return `
+    <div class="modal-backdrop" role="presentation">
+      <section class="decision-modal" role="dialog" aria-modal="true" aria-labelledby="decision-modal-title">
+        <span class="decision-modal__icon">${icon("info")}</span>
+        <h2 id="decision-modal-title">Did you know?</h2>
+        <p>Learners who receive reminders from Student Services are significantly more likely to complete their course.</p>
+        <div class="decision-modal__actions">
+          <button class="button button--primary" type="button" data-action="keep-opted-in">Keep me opted in</button>
+          <button class="button button--secondary" type="button" data-action="decline-support">No, thanks. I'll manage on my own.</button>
+        </div>
+      </section>
+    </div>
+  `;
+}
+
+function renderHome() {
+  const data = prototypes.current;
   const intro = data.intro ? `<p class="section-copy">${data.intro}</p>` : "";
 
-  document.getElementById("app").innerHTML = `
+  appRoot.innerHTML = `
+    ${state.showToast ? successToast() : ""}
     ${header()}
     <main class="student-center">
       <div class="student-center__inner">
@@ -263,6 +572,7 @@ function render() {
           <section class="content-section" aria-labelledby="courses-heading">
             <h2 id="courses-heading">${data.eyebrow}</h2>
             ${intro}
+            ${getStartedTile()}
             <div class="card-stack">
               ${data.courses.map(courseCard).join("")}
             </div>
@@ -280,5 +590,150 @@ function render() {
     ${footer()}
   `;
 }
+
+function renderOnboarding() {
+  const steps = [welcomeStep, goalStep, supportStep];
+  const activeStep = Math.min(Math.max(state.step, 0), steps.length - 1);
+
+  appRoot.innerHTML = `
+    ${header()}
+    <main class="onboarding-shell">
+      <div class="onboarding-shell__inner">
+        ${progressStepper(activeStep)}
+        ${steps[activeStep]()}
+      </div>
+    </main>
+    ${footer()}
+    ${optOutModal()}
+  `;
+}
+
+function completeOnboarding(nextPatch = {}) {
+  state = {
+    ...state,
+    ...nextPatch,
+    view: "home",
+    status: "complete",
+    step: 2,
+    showToast: true,
+    showOptOutModal: false,
+  };
+  saveState();
+  render();
+  window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+}
+
+function handleClick(event) {
+  const actionable = event.target.closest("[data-action]");
+
+  if (!actionable) {
+    return;
+  }
+
+  const action = actionable.dataset.action;
+
+  if (actionable.tagName === "A") {
+    event.preventDefault();
+  }
+
+  switch (action) {
+    case "start-onboarding": {
+      const nextStep = state.status === "in-progress" ? state.step : 0;
+      updateState({
+        view: "onboarding",
+        status: state.status === "complete" ? "complete" : "in-progress",
+        step: nextStep,
+        showToast: false,
+        showOptOutModal: false,
+      }, { scroll: true });
+      break;
+    }
+    case "next-step":
+      if (state.step === 1 && !canAdvanceGoal()) {
+        return;
+      }
+      updateState({ step: Math.min(state.step + 1, 2), showOptOutModal: false }, { scroll: true });
+      break;
+    case "previous-step":
+      updateState({ step: Math.max(state.step - 1, 0), showOptOutModal: false }, { scroll: true });
+      break;
+    case "finish-later":
+      updateState({
+        view: "home",
+        status: "in-progress",
+        showToast: false,
+        showOptOutModal: false,
+      }, { scroll: true });
+      break;
+    case "select-goal": {
+      const nextGoal = actionable.dataset.goal;
+      updateState({
+        goal: nextGoal,
+        otherReason: nextGoal === "Something else" ? state.otherReason : "",
+      });
+      break;
+    }
+    case "finish-support":
+      if (config.supportMode === "modal" && !state.supportOptIn) {
+        updateState({ showOptOutModal: true }, { persist: false, scroll: false });
+        return;
+      }
+      completeOnboarding();
+      break;
+    case "keep-opted-in":
+      completeOnboarding({ supportOptIn: true });
+      break;
+    case "decline-support":
+      completeOnboarding({ supportOptIn: false });
+      break;
+    case "close-toast":
+      updateState({ showToast: false }, { persist: false, scroll: false });
+      break;
+    default:
+      break;
+  }
+}
+
+function handleInput(event) {
+  if (!event.target.matches("[data-goal-other]")) {
+    return;
+  }
+
+  state = { ...state, otherReason: event.target.value };
+  saveState();
+
+  const counter = document.querySelector("[data-goal-counter]");
+  const nextButton = document.querySelector('[data-action="next-step"]');
+  const remaining = Math.max(0, goalCharacterLimit - state.otherReason.length);
+
+  if (counter) {
+    counter.textContent = `${remaining} characters remaining`;
+  }
+
+  if (nextButton) {
+    nextButton.disabled = !canAdvanceGoal();
+  }
+}
+
+function handleChange(event) {
+  if (!event.target.matches('[data-action="toggle-support"]')) {
+    return;
+  }
+
+  state = { ...state, supportOptIn: event.target.checked };
+  saveState();
+}
+
+function render() {
+  if (state.view === "onboarding") {
+    renderOnboarding();
+  } else {
+    renderHome();
+  }
+}
+
+document.addEventListener("click", handleClick);
+document.addEventListener("input", handleInput);
+document.addEventListener("change", handleChange);
 
 render();
