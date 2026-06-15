@@ -1227,7 +1227,7 @@ svg {
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 440px) {
   body {
     font-size: 14px;
   }
