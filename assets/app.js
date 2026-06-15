@@ -151,6 +151,11 @@ function escapeHtml(value) {
 function loadState() {
   try {
     const saved = JSON.parse(localStorage.getItem(config.storageKey));
+
+    if (saved?.status === "complete") {
+      return { ...defaultState };
+    }
+
     return {
       ...defaultState,
       ...saved,
