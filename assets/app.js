@@ -6,21 +6,21 @@ const learner = {
 
 const icons = {
   launch:
-    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7h8v8"/><path d="M17 7 9 15"/><path d="M12 5H7a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg>',
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h2.4c.56 0 .84 0 1.054.109.188.096.341.249.437.437C19 3.76 19 4.04 19 4.6v14.8c0 .56 0 .84-.109 1.054a1 1 0 0 1-.437.437C18.24 21 17.96 21 17.4 21H15"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg>',
   time:
-    '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/><path d="M19 19l2 2"/></svg>',
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
   support:
-    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16v8H4z"/><path d="M8 8a4 4 0 0 1 8 0"/><path d="M8 16a4 4 0 0 0 8 0"/><path d="M10 12h4"/></svg>',
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8.4V7.8c0-1.12 0-1.68.218-2.108a2 2 0 0 1 .874-.874C5.52 4.6 6.08 4.6 7.2 4.6h9.6c1.12 0 1.68 0 2.108.218.376.192.682.498.874.874C20 6.12 20 6.68 20 7.8v.6a3.6 3.6 0 0 0 0 7.2v.6c0 1.12 0 1.68-.218 2.108a2 2 0 0 1-.874.874c-.428.218-.988.218-2.108.218H7.2c-1.12 0-1.68 0-2.108-.218a2 2 0 0 1-.874-.874C4 17.88 4 17.32 4 16.2v-.6a3.6 3.6 0 0 0 0-7.2Z"/><path d="M9.5 8.5v7"/><path d="M14.5 8.5v7"/></svg>',
   report:
-    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l3 3v15H7z"/><path d="M14 3v4h4"/><path d="M10 17v-4"/><path d="M13 17v-7"/><path d="M16 17v-2"/></svg>',
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3.5H7.8c-1.12 0-1.68 0-2.108.218a2 2 0 0 0-.874.874C4.6 5.02 4.6 5.58 4.6 6.7v10.6c0 1.12 0 1.68.218 2.108.192.376.498.682.874.874.428.218.988.218 2.108.218h8.4c1.12 0 1.68 0 2.108-.218a2 2 0 0 0 .874-.874c.218-.428.218-.988.218-2.108V8.9L14 3.5Z"/><path d="M14 3.5V8c0 .56 0 .84.109 1.054.096.188.249.341.437.437.214.109.494.109 1.054.109h3.8"/><path d="M9.5 17v-4"/><path d="M12 17v-7"/><path d="M14.5 17v-2"/></svg>',
   chart:
-    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 16v-5"/><path d="M12 16V8"/><path d="M16 16v-3"/></svg>',
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8.5 16.5v-5"/><path d="M12 16.5v-9"/><path d="M15.5 16.5v-3"/></svg>',
   briefcase:
-    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6V5a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v1"/><path d="M4 8h16v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M4 12h16"/></svg>',
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 7V5.8c0-.84 0-1.26.164-1.581.144-.282.373-.511.655-.655C9.64 3.4 10.06 3.4 10.9 3.4h2.2c.84 0 1.26 0 1.581.164.282.144.511.373.655.655.164.321.164.741.164 1.581V7"/><rect x="3.5" y="7" width="17" height="13" rx="2.5"/><path d="M3.5 12.5h17"/><path d="M9.5 12.5V14a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1.5"/></svg>',
   phone:
-    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v2.4a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 1.4h2.4a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L7.7 8.9a16 16 0 0 0 6 6l1.1-1.1a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7a2 2 0 0 1 1.7 2z"/></svg>',
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v2.4a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.49 19.49 0 0 1-6-6A19.79 19.79 0 0 1 2.12 3.6 2 2 0 0 1 4.11 1.4h2.4a2 2 0 0 1 2 1.72c.13.96.37 1.89.72 2.77a2 2 0 0 1-.45 2.11L7.76 9.02a16 16 0 0 0 7.22 7.22l1.02-1.02a2 2 0 0 1 2.11-.45c.88.35 1.81.59 2.77.72A2 2 0 0 1 22 16.92Z"/></svg>',
   search:
-    '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>',
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><path d="m16.5 16.5 4 4"/></svg>',
   menu:
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg>',
   chevronRight:
