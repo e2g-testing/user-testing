@@ -283,9 +283,9 @@ function header() {
     <header class="site-header">
       <div class="site-header__inner">
         <button class="header-menu-button" type="button" aria-label="Open navigation menu">${icon("menu")}</button>
-        <a href="../" class="brand" aria-label="ed2go prototypes home">
+        <div class="brand">
           <img class="brand-logo" src="../assets/ed2go-logo-header.png" alt="ed2go">
-        </a>
+        </div>
         <nav class="top-nav" aria-label="Primary">
           <button type="button">Explore Courses<span class="chevron-down" aria-hidden="true"></span></button>
           <button type="button">Resources<span class="chevron-down" aria-hidden="true"></span></button>
