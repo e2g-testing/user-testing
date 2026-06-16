@@ -1609,7 +1609,7 @@ svg {
 }
 
 .support-choice-card:hover {
-  border-color: #3282ad;
+  border-color: #99c0d6;
   box-shadow: none;
 }
 
@@ -1619,6 +1619,7 @@ svg {
 }
 
 .support-choice-card.is-selected {
+  border-width: 3px;
   border-color: #006399;
   box-shadow: none;
 }
