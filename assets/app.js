@@ -133,6 +133,7 @@ const goalOptions = [
 ];
 
 const goalCharacterLimit = 150;
+const goalCharacterLimitError = "Your feedback must be 150 characters or fewer.";
 const appRoot = document.getElementById("app");
 const prototypeKey = document.body.dataset.prototype || "current";
 const config = prototypeConfig[prototypeKey] || prototypeConfig.current;
@@ -573,6 +574,8 @@ function canAdvanceGoal() {
 function goalStep() {
   const remaining = Math.max(0, goalCharacterLimit - state.otherReason.length);
   const showOther = state.goal === "Something else";
+  const isOverLimit = state.otherReason.length > goalCharacterLimit;
+  const feedbackText = isOverLimit ? goalCharacterLimitError : `${remaining} characters remaining`;
 
   return `
     <section class="onboarding-panel onboarding-panel--wide" aria-labelledby="goal-title">
@@ -591,10 +594,10 @@ function goalStep() {
       </fieldset>
       ${
         showOther
-          ? `<div class="goal-other">
+          ? `<div class="goal-other ${isOverLimit ? "is-error" : ""}">
               <label for="goal-other">Tell us your main reason</label>
-              <textarea id="goal-other" data-goal-other maxlength="${goalCharacterLimit}" rows="5">${escapeHtml(state.otherReason)}</textarea>
-              <p data-goal-counter>${remaining} characters remaining</p>
+              <textarea id="goal-other" data-goal-other rows="5" aria-describedby="goal-other-feedback" aria-invalid="${isOverLimit}">${escapeHtml(state.otherReason)}</textarea>
+              <p id="goal-other-feedback" data-goal-feedback ${isOverLimit ? 'role="alert"' : ""}>${feedbackText}</p>
             </div>`
           : ""
       }
@@ -912,12 +915,26 @@ function handleInput(event) {
   state = { ...state, otherReason: event.target.value };
   saveState();
 
-  const counter = document.querySelector("[data-goal-counter]");
+  const feedback = document.querySelector("[data-goal-feedback]");
+  const goalOther = document.querySelector(".goal-other");
   const nextButton = document.querySelector('[data-action="next-step"]');
   const remaining = Math.max(0, goalCharacterLimit - state.otherReason.length);
+  const isOverLimit = state.otherReason.length > goalCharacterLimit;
 
-  if (counter) {
-    counter.textContent = `${remaining} characters remaining`;
+  event.target.setAttribute("aria-invalid", String(isOverLimit));
+
+  if (goalOther) {
+    goalOther.classList.toggle("is-error", isOverLimit);
+  }
+
+  if (feedback) {
+    feedback.textContent = isOverLimit ? goalCharacterLimitError : `${remaining} characters remaining`;
+
+    if (isOverLimit) {
+      feedback.setAttribute("role", "alert");
+    } else {
+      feedback.removeAttribute("role");
+    }
   }
 
   if (nextButton) {
