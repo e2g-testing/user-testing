@@ -1739,6 +1739,10 @@ svg {
     margin: 0 0 24px;
   }
 
+  .main-content h1 + .responsive-course-tabs {
+    margin-top: 24px;
+  }
+
   .content-section {
     margin-top: 0;
   }
