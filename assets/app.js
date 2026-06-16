@@ -262,10 +262,17 @@ function sideNav(selected) {
         <p>Access resources to help you in your chosen career.</p>
         <a href="#" class="side-link">${icon("briefcase")}<span>Virtual Career Center</span></a>
       </section>
-      <section class="side-card">
-        <h2>Get Support</h2>
-        <p>Need help? We've got you covered.</p>
-        <a href="tel:18664415454" class="side-link">${icon("phone")}<span>Call Us: 1-866-441-5454</span></a>
+      <section class="side-card side-card--support">
+        <div class="support-home-card">
+          <div class="support-home-card__intro">
+            <div class="support-home-card__copy">
+              <h2>Get Support</h2>
+              <p>Get help with your account or program.</p>
+            </div>
+            <a href="tel:18664415454" class="side-link">${icon("phone")}<span>Call: 1-866-441-5454</span></a>
+          </div>
+          <p class="support-home-card__course-help">For help with course content, contact your instructor from the Message Center inside your course.</p>
+        </div>
       </section>
     </aside>
   `;
@@ -414,12 +421,17 @@ function responsiveSideCards() {
         </div>
         <a href="#" class="side-link">${icon("briefcase")}<span>Virtual Career Center</span></a>
       </article>
-      <article class="responsive-side-card">
-        <div>
-          <h2>Get Support</h2>
-          <p>Need help? We've got you covered.</p>
+      <article class="responsive-side-card responsive-side-card--support">
+        <div class="support-home-card">
+          <div class="support-home-card__intro">
+            <div class="support-home-card__copy">
+              <h2>Get Support</h2>
+              <p>Get help with your account or program.</p>
+            </div>
+            <a href="tel:18664415454" class="side-link">${icon("phone")}<span>Call: 1-866-441-5454</span></a>
+          </div>
+          <p class="support-home-card__course-help">For help with course content, contact your instructor from the Message Center inside your course.</p>
         </div>
-        <a href="tel:18664415454" class="side-link">${icon("phone")}<span>Call Us: 1-866-441-5454</span></a>
       </article>
     </section>
   `;

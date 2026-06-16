@@ -293,6 +293,67 @@ svg {
   line-height: 1.45;
 }
 
+.side-card--support {
+  border-color: #eaecf0;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: none;
+}
+
+.support-home-card {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.support-home-card__intro {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.support-home-card__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.support-home-card h2 {
+  margin: 0;
+  color: #344054;
+  font-family: "Source Sans Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 600;
+}
+
+.support-home-card p {
+  margin: 0;
+  color: #344054;
+  font-family: "Source Sans Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.support-home-card .side-link {
+  gap: 8px;
+  min-height: 36px;
+  padding: 8px 0;
+  color: #004770;
+  font-family: "Source Sans Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+}
+
+.support-home-card .side-link svg {
+  width: 20px;
+  height: 20px;
+}
+
 .course-tabs {
   display: grid;
   gap: 4px;
@@ -403,6 +464,22 @@ svg {
   margin: 0;
   color: #344054;
   line-height: 1.45;
+}
+
+.responsive-side-card--support {
+  border-color: #eaecf0;
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+.responsive-side-card--support .support-home-card h2 {
+  margin: 0;
+  line-height: 28px;
+  font-weight: 600;
+}
+
+.responsive-side-card--support .support-home-card p {
+  line-height: 20px;
 }
 
 .main-content h1 {
