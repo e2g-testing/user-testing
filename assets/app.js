@@ -29,6 +29,8 @@ const icons = {
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>',
   info:
     '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>',
+  messageAlert:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5z"/><path d="M12 7.5v5"/><path d="M12 16h.01"/></svg>',
   target:
     '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v3"/><path d="M12 19v3"/><path d="M2 12h3"/><path d="M19 12h3"/></svg>',
   milestone:
@@ -136,6 +138,7 @@ const defaultState = {
   otherReason: "",
   supportChoice: "",
   supportOptIn: false,
+  supportOptOutAcknowledged: false,
   showToast: false,
   showOptOutModal: false,
 };
@@ -678,7 +681,7 @@ function optOutModal() {
   return `
     <div class="modal-backdrop" role="presentation">
       <section class="decision-modal" role="dialog" aria-modal="true" aria-labelledby="decision-modal-title">
-        <span class="decision-modal__icon">${icon("info")}</span>
+        <span class="decision-modal__icon">${icon("messageAlert")}</span>
         <h2 id="decision-modal-title">Did you know?</h2>
         <p>Learners who receive support from Student Services are significantly more likely to complete their course.</p>
         <div class="decision-modal__actions">
@@ -818,17 +821,27 @@ function handleClick(event) {
       break;
     }
     case "finish-support":
-      if (config.supportMode === "modal" && !state.supportOptIn) {
+      if (config.supportMode === "modal" && !state.supportOptIn && !state.supportOptOutAcknowledged) {
         updateState({ showOptOutModal: true }, { persist: false, scroll: false });
         return;
       }
       completeOnboarding();
       break;
     case "keep-opted-in":
-      completeOnboarding({ supportChoice: "text", supportOptIn: true });
+      updateState({
+        supportChoice: "text",
+        supportOptIn: true,
+        supportOptOutAcknowledged: false,
+        showOptOutModal: false,
+      }, { scroll: false });
       break;
     case "decline-support":
-      completeOnboarding({ supportChoice: "email", supportOptIn: false });
+      updateState({
+        supportChoice: "email",
+        supportOptIn: false,
+        supportOptOutAcknowledged: true,
+        showOptOutModal: false,
+      }, { scroll: false });
       break;
     case "close-toast":
       updateState({ showToast: false }, { persist: false, scroll: false });
@@ -865,6 +878,7 @@ function handleChange(event) {
     updateState({
       supportChoice,
       supportOptIn: supportChoice === "text",
+      supportOptOutAcknowledged: false,
       showOptOutModal: false,
     });
     return;
@@ -878,6 +892,7 @@ function handleChange(event) {
     ...state,
     supportChoice: event.target.checked ? "text" : "",
     supportOptIn: event.target.checked,
+    supportOptOutAcknowledged: false,
   };
   saveState();
 }
