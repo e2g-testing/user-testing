@@ -760,8 +760,8 @@ function optOutModal() {
         <h2 id="decision-modal-title">Did you know?</h2>
         <p>Learners who receive support from Student Services are significantly more likely to complete their course.</p>
         <div class="decision-modal__actions">
-          <button class="button button--primary" type="button" data-action="keep-opted-in">Keep me opted in</button>
-          <button class="button button--secondary" type="button" data-action="decline-support">No, thanks. I'll manage on my own.</button>
+          <button class="button button--primary" type="button" data-action="enable-text-support">Enable text support</button>
+          <button class="button button--secondary" type="button" data-action="continue-without-text-support">Continue without text support</button>
         </div>
       </section>
     </div>
@@ -890,27 +890,28 @@ function handleClick(event) {
       break;
     }
     case "finish-support":
-      if (config.supportMode === "modal" && !state.supportOptIn && !state.supportOptOutAcknowledged) {
+      if (prototypeKey !== "c" && !state.supportOptIn) {
         updateState({ showOptOutModal: true }, { persist: false, scroll: false });
         return;
       }
-      completeOnboarding();
+      completeOnboarding({
+        supportChoice: state.supportOptIn ? "text" : state.supportChoice,
+        supportOptIn: state.supportOptIn,
+      });
       break;
-    case "keep-opted-in":
-      updateState({
+    case "enable-text-support":
+      completeOnboarding({
         supportChoice: "text",
         supportOptIn: true,
         supportOptOutAcknowledged: false,
-        showOptOutModal: false,
-      }, { scroll: false });
+      });
       break;
-    case "decline-support":
-      updateState({
+    case "continue-without-text-support":
+      completeOnboarding({
         supportChoice: "email",
         supportOptIn: false,
         supportOptOutAcknowledged: true,
-        showOptOutModal: false,
-      }, { scroll: false });
+      });
       break;
     case "close-toast":
       updateState({ showToast: false }, { persist: false, scroll: false });
