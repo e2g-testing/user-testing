@@ -167,6 +167,10 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
+function clampGoalOtherReason(value) {
+  return String(value || "").slice(0, goalCharacterLimit);
+}
+
 function loadState() {
   try {
     const saved = JSON.parse(localStorage.getItem(config.storageKey));
@@ -178,6 +182,7 @@ function loadState() {
     return {
       ...defaultState,
       ...saved,
+      otherReason: clampGoalOtherReason(saved?.otherReason),
       view: "home",
       activeCourseTab: "Current",
       showToast: false,
@@ -574,8 +579,8 @@ function canAdvanceGoal() {
 function goalStep() {
   const remaining = Math.max(0, goalCharacterLimit - state.otherReason.length);
   const showOther = state.goal === "Something else";
-  const isOverLimit = state.otherReason.length > goalCharacterLimit;
-  const feedbackText = isOverLimit ? goalCharacterLimitError : `${remaining} characters remaining`;
+  const isAtLimit = state.otherReason.length >= goalCharacterLimit;
+  const feedbackText = isAtLimit ? goalCharacterLimitError : `${remaining} characters remaining`;
 
   return `
     <section class="onboarding-panel onboarding-panel--wide" aria-labelledby="goal-title">
@@ -594,10 +599,10 @@ function goalStep() {
       </fieldset>
       ${
         showOther
-          ? `<div class="goal-other ${isOverLimit ? "is-error" : ""}">
+          ? `<div class="goal-other ${isAtLimit ? "is-error" : ""}">
               <label for="goal-other">Tell us your main reason</label>
-              <textarea id="goal-other" data-goal-other rows="5" aria-describedby="goal-other-feedback" aria-invalid="${isOverLimit}">${escapeHtml(state.otherReason)}</textarea>
-              <p id="goal-other-feedback" data-goal-feedback ${isOverLimit ? 'role="alert"' : ""}>${feedbackText}</p>
+              <textarea id="goal-other" data-goal-other rows="5" maxlength="${goalCharacterLimit}" aria-describedby="goal-other-feedback" aria-invalid="${isAtLimit}">${escapeHtml(state.otherReason)}</textarea>
+              <p id="goal-other-feedback" data-goal-feedback ${isAtLimit ? 'role="alert"' : ""}>${feedbackText}</p>
             </div>`
           : ""
       }
@@ -912,25 +917,31 @@ function handleInput(event) {
     return;
   }
 
-  state = { ...state, otherReason: event.target.value };
+  const otherReason = clampGoalOtherReason(event.target.value);
+
+  if (event.target.value !== otherReason) {
+    event.target.value = otherReason;
+  }
+
+  state = { ...state, otherReason };
   saveState();
 
   const feedback = document.querySelector("[data-goal-feedback]");
   const goalOther = document.querySelector(".goal-other");
   const nextButton = document.querySelector('[data-action="next-step"]');
   const remaining = Math.max(0, goalCharacterLimit - state.otherReason.length);
-  const isOverLimit = state.otherReason.length > goalCharacterLimit;
+  const isAtLimit = state.otherReason.length >= goalCharacterLimit;
 
-  event.target.setAttribute("aria-invalid", String(isOverLimit));
+  event.target.setAttribute("aria-invalid", String(isAtLimit));
 
   if (goalOther) {
-    goalOther.classList.toggle("is-error", isOverLimit);
+    goalOther.classList.toggle("is-error", isAtLimit);
   }
 
   if (feedback) {
-    feedback.textContent = isOverLimit ? goalCharacterLimitError : `${remaining} characters remaining`;
+    feedback.textContent = isAtLimit ? goalCharacterLimitError : `${remaining} characters remaining`;
 
-    if (isOverLimit) {
+    if (isAtLimit) {
       feedback.setAttribute("role", "alert");
     } else {
       feedback.removeAttribute("role");
