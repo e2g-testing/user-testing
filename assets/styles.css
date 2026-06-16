@@ -1013,6 +1013,7 @@ svg {
   border: 0;
   border-radius: 50%;
   background: #f2f4f7;
+  overflow: hidden;
   color: transparent;
   font-size: 0;
   line-height: 1;
@@ -1023,12 +1024,16 @@ svg {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #eaecf0;
+  background: #ffffff;
 }
 
 .progress-steps__marker svg {
   width: 14px;
   height: 14px;
+}
+
+.progress-steps li:hover .progress-steps__marker {
+  background: #eaecf0;
 }
 
 .progress-steps .is-current {
@@ -1044,9 +1049,17 @@ svg {
   background: #ffffff;
 }
 
+.progress-steps .is-current:hover .progress-steps__marker {
+  background: #004770;
+}
+
 .progress-steps .is-complete .progress-steps__marker {
   background: #005584;
   color: #ffffff;
+}
+
+.progress-steps .is-complete:hover .progress-steps__marker {
+  background: #004770;
 }
 
 .progress-steps .is-complete .progress-steps__marker::before {
