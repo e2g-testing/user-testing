@@ -306,14 +306,27 @@ svg {
   padding: 10px 14px;
   border-radius: 6px;
   color: #667085;
+  font-family: "Source Sans Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 16px;
   font-weight: 600;
   line-height: 24px;
+  transition:
+    background-color 0.16s ease,
+    color 0.16s ease,
+    box-shadow 0.16s ease;
 }
 
+.course-tabs a:hover,
 .course-tabs a[aria-current="page"] {
   background: #e7eff5;
   color: #004770;
+}
+
+.course-tabs a:focus-visible {
+  outline: 0;
+  background: #ffffff;
+  color: #667085;
+  box-shadow: 0 0 0 4px #f4ebff;
 }
 
 .side-link {
@@ -344,14 +357,27 @@ svg {
   padding: 10px 14px;
   border-radius: 6px;
   color: #667085;
+  font-family: "Source Sans Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 16px;
   font-weight: 600;
   line-height: 24px;
+  transition:
+    background-color 0.16s ease,
+    color 0.16s ease,
+    box-shadow 0.16s ease;
 }
 
+.responsive-course-tabs a:hover,
 .responsive-course-tabs a[aria-current="page"] {
   background: #e7eff5;
   color: #004770;
+}
+
+.responsive-course-tabs a:focus-visible {
+  outline: 0;
+  background: #ffffff;
+  color: #667085;
+  box-shadow: 0 0 0 4px #f4ebff;
 }
 
 .responsive-side-card {
