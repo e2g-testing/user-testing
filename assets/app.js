@@ -49,6 +49,14 @@ const icons = {
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>',
   handHeart:
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 14h2l5-5a2.1 2.1 0 0 1 3 3l-6 6H8l-4-2.5V11h2.5l3.5 3h1"/><path d="M12 8.5 10.6 7a2.2 2.2 0 0 1 3.1-3.1L12 5.6l-1.7-1.7A2.2 2.2 0 0 1 13.4 7z"/></svg>',
+  supportProgress:
+    '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M8 40 24 24l12 12 20-24" stroke-width="5"/><path d="M12 48V36" stroke-width="5"/><path d="M24 48V30" stroke-width="5"/><path d="M36 48V40" stroke-width="5"/><path d="M48 48V26" stroke-width="5"/></svg>',
+  supportTrophy:
+    '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M22 12h20v18a10 10 0 0 1-20 0V12Z" stroke-width="5"/><path d="M22 18h-8v7a10 10 0 0 0 10 10" stroke-width="5"/><path d="M42 18h8v7a10 10 0 0 1-10 10" stroke-width="5"/><path d="M32 40v10" stroke-width="5"/><path d="M20 52h24" stroke-width="5"/></svg>',
+  supportBell:
+    '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M18 48h28c-3-4-5-6-5-18a9 9 0 0 0-18 0c0 12-2 14-5 18Z" stroke-width="5"/><path d="M28 54h8" stroke-width="5"/></svg>',
+  supportHandHeart:
+    '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M7 38 22 52h20l13-13a6 6 0 0 0-8-8L36 41H26" stroke-width="5"/><path d="M20 39h9c4 0 6-2 6-5s-2-5-6-5h-7l-7-7" stroke-width="5"/><path d="M39 23 32 16a8 8 0 1 1 12-10l2 2 2-2a8 8 0 1 1 12 10l-14 14-7-7Z" stroke-width="5"/></svg>',
 };
 
 const prototypes = {
@@ -613,10 +621,10 @@ function goalStep() {
 
 function supportCategories() {
   const categories = [
-    ["Progress updates", "chart"],
-    ["Important milestones", "trophy"],
-    ["Upcoming deadlines", "bell"],
-    ["Support & resources", "handHeart"],
+    ["Progress updates", "supportProgress"],
+    ["Important milestones", "supportTrophy"],
+    ["Upcoming deadlines", "supportBell"],
+    ["Support & resources", "supportHandHeart"],
   ];
 
   return categories
@@ -659,7 +667,7 @@ function supportStep() {
   const checked = state.supportOptIn ? "checked" : "";
 
   return `
-    <section class="onboarding-panel onboarding-panel--wide" aria-labelledby="support-title">
+    <section class="onboarding-panel onboarding-panel--wide onboarding-panel--support" aria-labelledby="support-title">
       <h1 id="support-title">Connect with Student Services</h1>
       <p class="onboarding-lede">Unlock direct, personalized guidance from Student Services to help you stay on track and reach your goals.</p>
       <div class="support-card">
