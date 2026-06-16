@@ -849,54 +849,74 @@ svg {
   top: 96px;
   left: 50%;
   z-index: 40;
-  width: min(586px, calc(100% - 32px));
+  width: min(620px, calc(100% - 32px));
   min-height: 76px;
   transform: translateX(-50%);
-  padding: 16px 18px;
-  border: 1px solid #75e0a7;
-  border-radius: 8px;
-  background: #ecfdf3;
+  padding: 16px;
+  border: 1px solid #6ce9a6;
+  border-radius: 12px;
+  background: #f6fef9;
   color: #027a48;
-  box-shadow: 0 6px 14px rgba(16, 24, 40, 0.08);
+  box-shadow: none;
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 12px;
   align-items: start;
+  font-family: "Source Sans Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 .success-toast__icon {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   display: grid;
   place-items: center;
-  border-radius: 50%;
-  background: #d1fadf;
   color: #039855;
+}
+
+.success-toast__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.success-toast__content {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
 }
 
 .success-toast strong {
   display: block;
-  margin-bottom: 2px;
   font-size: 14px;
-  line-height: 1.35;
+  line-height: 20px;
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 .success-toast p {
   margin: 0;
   color: #027a48;
-  font-size: 13px;
-  line-height: 1.4;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
 }
 
 .success-toast button {
-  width: 26px;
-  height: 26px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
   display: grid;
   place-items: center;
+  border-radius: 8px;
   border: 0;
   background: transparent;
   color: #039855;
   cursor: pointer;
+}
+
+.success-toast button svg {
+  width: 20px;
+  height: 20px;
 }
 
 .onboarding-shell {

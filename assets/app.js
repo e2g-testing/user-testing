@@ -25,6 +25,8 @@ const icons = {
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>',
   check:
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>',
+  checkCircle:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>',
   close:
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>',
   info:
@@ -440,10 +442,10 @@ function responsiveSideCards() {
 function successToast() {
   return `
     <div class="success-toast" role="status" aria-live="polite">
-      <span class="success-toast__icon">${icon("check")}</span>
-      <div>
+      <span class="success-toast__icon">${icon("checkCircle")}</span>
+      <div class="success-toast__content">
         <strong>You're all set to start learning!</strong>
-        <p>Your goal and notifications are set. Update your notifications anytime in your profile.</p>
+        <p>Your goal and preferences are set. Update your preferences anytime in your profile.</p>
       </div>
       <button type="button" aria-label="Close notification" data-action="close-toast">${icon("close")}</button>
     </div>
