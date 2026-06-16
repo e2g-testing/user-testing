@@ -117,19 +117,15 @@ const emptyCourseStates = {
 
 const prototypeConfig = {
   a: {
-    storageKey: "ed2go-onboarding-prototype-a",
     supportMode: "standard",
   },
   b: {
-    storageKey: "ed2go-onboarding-prototype-b",
     supportMode: "modal",
   },
   c: {
-    storageKey: "ed2go-onboarding-prototype-c",
     supportMode: "standard",
   },
   current: {
-    storageKey: "ed2go-onboarding-prototype-current",
     supportMode: "standard",
   },
 };
@@ -163,7 +159,7 @@ const defaultState = {
   showOptOutModal: false,
 };
 
-let state = loadState();
+let state = createInitialState();
 
 function icon(name) {
   return icons[name] || "";
@@ -182,39 +178,12 @@ function clampGoalOtherReason(value) {
   return String(value || "").slice(0, goalCharacterLimit);
 }
 
-function loadState() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(config.storageKey));
-
-    if (saved?.status === "complete") {
-      return { ...defaultState };
-    }
-
-    return {
-      ...defaultState,
-      ...saved,
-      otherReason: clampGoalOtherReason(saved?.otherReason),
-      view: "home",
-      activeCourseTab: "Current",
-      showToast: false,
-      showOptOutModal: false,
-    };
-  } catch {
-    return { ...defaultState };
-  }
-}
-
-function saveState() {
-  const { view, activeCourseTab, showToast, showOptOutModal, ...persistentState } = state;
-  localStorage.setItem(config.storageKey, JSON.stringify(persistentState));
+function createInitialState() {
+  return { ...defaultState };
 }
 
 function updateState(patch, options = {}) {
   state = { ...state, ...patch };
-
-  if (options.persist !== false) {
-    saveState();
-  }
 
   render();
 
@@ -831,7 +800,6 @@ function completeOnboarding(nextPatch = {}) {
     showToast: true,
     showOptOutModal: false,
   };
-  saveState();
   render();
   window.scrollTo({ top: 0, left: 0, behavior: "auto" });
 }
@@ -882,7 +850,7 @@ function handleClick(event) {
     case "select-course-tab":
       updateState({
         activeCourseTab: actionable.dataset.courseTab || "Current",
-      }, { persist: false, scroll: false });
+      }, { scroll: false });
       break;
     case "select-goal": {
       const nextGoal = actionable.dataset.goal;
@@ -894,7 +862,7 @@ function handleClick(event) {
     }
     case "finish-support":
       if (prototypeKey !== "c" && !state.supportOptIn) {
-        updateState({ showOptOutModal: true }, { persist: false, scroll: false });
+        updateState({ showOptOutModal: true }, { scroll: false });
         return;
       }
       completeOnboarding({
@@ -917,7 +885,7 @@ function handleClick(event) {
       });
       break;
     case "close-toast":
-      updateState({ showToast: false }, { persist: false, scroll: false });
+      updateState({ showToast: false }, { scroll: false });
       break;
     default:
       break;
@@ -936,7 +904,6 @@ function handleInput(event) {
   }
 
   state = { ...state, otherReason };
-  saveState();
 
   const feedback = document.querySelector("[data-goal-feedback]");
   const goalOther = document.querySelector(".goal-other");
@@ -987,7 +954,6 @@ function handleChange(event) {
     supportOptIn: event.target.checked,
     supportOptOutAcknowledged: false,
   };
-  saveState();
 }
 
 function render() {
