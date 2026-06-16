@@ -17,6 +17,8 @@ const icons = {
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v2.4a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 1.4h2.4a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L7.7 8.9a16 16 0 0 0 6 6l1.1-1.1a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7a2 2 0 0 1 1.7 2z"/></svg>',
   search:
     '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>',
+  menu:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg>',
   chevronRight:
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>',
   chevronLeft:
@@ -270,17 +272,20 @@ function header() {
   return `
     <header class="site-header">
       <div class="site-header__inner">
+        <button class="header-menu-button" type="button" aria-label="Open navigation menu">${icon("menu")}</button>
         <a href="../" class="brand" aria-label="ed2go prototypes home">
-          <span class="logo-mark" aria-hidden="true">e</span>
-          <span class="logo-word"><strong>ed</strong><span>2</span><strong>go</strong></span>
+          <img class="brand-logo" src="../assets/ed2go-logo-header.png" alt="ed2go">
         </a>
         <nav class="top-nav" aria-label="Primary">
-          <a href="#">Explore Courses</a>
-          <a href="#">Resources</a>
+          <button type="button">Explore Courses<span class="chevron-down" aria-hidden="true"></span></button>
+          <button type="button">Resources<span class="chevron-down" aria-hidden="true"></span></button>
         </nav>
         <div class="header-actions">
-          <a href="#">Account</a>
           <button type="button" aria-label="Search">${icon("search")}</button>
+          <button class="account-trigger" type="button" aria-label="Account menu">
+            <span class="avatar" aria-hidden="true">JK</span>
+            <span class="chevron-down" aria-hidden="true"></span>
+          </button>
           <div class="contact">
             <span>Contact Us</span>
             <a href="tel:18664415454">866-441-5454</a>

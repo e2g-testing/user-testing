@@ -55,24 +55,39 @@ svg {
 .site-header {
   height: 69px;
   background: var(--surface);
-  border-bottom: 1px solid #ecf0f4;
+  border-bottom: 1px solid #f2f4f7;
 }
 
 .site-header__inner {
   width: min(1200px, calc(100% - 32px));
   height: 100%;
   margin: 0 auto;
+  padding: 0 16px;
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 24px;
 }
 
-.brand,
 .launcher__brand,
 .footer-logo {
   display: inline-flex;
   align-items: center;
   gap: 7px;
+}
+
+.brand {
+  width: 132px;
+  height: 41px;
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.brand-logo {
+  width: 132px;
+  height: 41px;
+  display: block;
+  object-fit: contain;
 }
 
 .logo-mark {
@@ -106,28 +121,64 @@ svg {
 .top-nav {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 24px;
+}
+
+.top-nav button {
+  min-height: 32px;
+  padding: 4px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  background: transparent;
   color: #667085;
-}
-
-.top-nav a,
-.header-actions > a {
-  position: relative;
-  padding-right: 18px;
+  font-family: "Source Sans Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
   white-space: nowrap;
+  cursor: pointer;
 }
 
-.top-nav a::after,
-.header-actions > a::after {
+.chevron-down {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  flex: 0 0 20px;
+}
+
+.chevron-down::after {
   content: "";
   position: absolute;
-  right: 0;
   top: 50%;
+  left: 50%;
   width: 7px;
   height: 7px;
-  border-right: 1.5px solid currentColor;
-  border-bottom: 1.5px solid currentColor;
-  transform: translateY(-70%) rotate(45deg);
+  border-right: 1.6px solid currentColor;
+  border-bottom: 1.6px solid currentColor;
+  transform: translate(-50%, -65%) rotate(45deg);
+}
+
+.header-menu-button {
+  width: 38px;
+  height: 38px;
+  display: none;
+  place-items: center;
+  flex: 0 0 auto;
+  padding: 8px;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #344054;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+  cursor: pointer;
+}
+
+.header-menu-button svg {
+  width: 20px;
+  height: 20px;
 }
 
 .header-actions {
@@ -138,9 +189,9 @@ svg {
   color: #667085;
 }
 
-.header-actions button {
-  width: 34px;
-  height: 34px;
+.header-actions > button {
+  width: 36px;
+  height: 36px;
   display: grid;
   place-items: center;
   color: #5d6b82;
@@ -149,18 +200,55 @@ svg {
   cursor: pointer;
 }
 
+.header-actions > button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.account-trigger {
+  width: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 0;
+}
+
+.header-actions > .account-trigger {
+  width: auto;
+  display: inline-flex;
+  padding: 4px 0;
+}
+
+.avatar {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(185, 207, 225, 0.5), rgba(208, 213, 221, 0.5));
+  color: #475467;
+  font-family: "Source Sans Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
 .contact {
   min-height: 69px;
   padding-left: 16px;
-  border-left: 1px solid var(--line);
+  border-left: 1px solid #dee2e6;
   display: grid;
   align-content: center;
   gap: 2px;
   white-space: nowrap;
+  color: rgba(0, 0, 0, 0.6);
+  font-family: "Open Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
 }
 
 .contact a {
-  color: #666f7f;
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .student-center {
@@ -1312,8 +1400,9 @@ svg {
   .site-header__inner {
     width: min(750px, calc(100% - 84px));
     min-height: 69px;
+    padding: 0 16px;
     flex-wrap: nowrap;
-    gap: 20px;
+    gap: 16px;
   }
 
   .top-nav,
@@ -1321,11 +1410,15 @@ svg {
     display: none;
   }
 
+  .header-menu-button {
+    display: grid;
+  }
+
   .header-actions {
     width: auto;
     margin-left: auto;
     justify-content: flex-end;
-    gap: 12px;
+    gap: 8px;
   }
 
   .student-center__inner {
@@ -1456,6 +1549,17 @@ svg {
   .onboarding-shell__inner,
   .site-footer__inner {
     width: calc(100% - 32px);
+  }
+
+  .site-header__inner {
+    width: 100%;
+    padding: 0 16px;
+  }
+
+  .brand,
+  .brand-logo {
+    width: 88px;
+    height: 27px;
   }
 
   .logo-mark {
