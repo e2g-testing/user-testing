@@ -406,39 +406,51 @@ svg {
 }
 
 .responsive-course-tabs {
-  gap: 4px;
-  padding: 0;
+  gap: 8px;
+  align-items: center;
+  padding: 4px;
+  border: 1px solid #f2f4f7;
+  border-radius: 8px;
+  background: #f9fafb;
+  overflow-x: auto;
 }
 
 .responsive-course-tabs a {
+  flex: 0 0 auto;
   min-width: 0;
-  min-height: 44px;
-  display: grid;
-  place-items: center;
-  padding: 10px 14px;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
   border-radius: 6px;
   color: #667085;
   font-family: "Source Sans Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
-  line-height: 24px;
+  line-height: 20px;
+  white-space: nowrap;
   transition:
     background-color 0.16s ease,
     color 0.16s ease,
     box-shadow 0.16s ease;
 }
 
-.responsive-course-tabs a:hover,
+.responsive-course-tabs a:hover {
+  color: #344054;
+}
+
 .responsive-course-tabs a[aria-current="page"] {
-  background: #e7eff5;
-  color: #004770;
+  background: #ffffff;
+  color: #344054;
+  box-shadow:
+    0 1px 2px rgba(16, 24, 40, 0.06),
+    0 1px 3px rgba(16, 24, 40, 0.1);
 }
 
 .responsive-course-tabs a:focus-visible {
-  outline: 0;
-  background: #ffffff;
-  color: #667085;
-  box-shadow: 0 0 0 4px #f4ebff;
+  outline: 3px solid rgba(11, 117, 187, 0.35);
+  outline-offset: 2px;
 }
 
 .responsive-side-card {
@@ -1734,8 +1746,7 @@ svg {
   }
 
   .responsive-course-tabs {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    display: flex;
     margin: 0 0 24px;
   }
 
@@ -2122,6 +2133,6 @@ svg {
 
 @media (max-width: 360px) {
   .responsive-course-tabs a {
-    padding: 10px 6px;
+    padding: 8px 10px;
   }
 }
