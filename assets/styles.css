@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Source+Sans+Pro:wght@400;600;700&display=swap");
+
 :root {
   --blue-700: #006fa6;
   --blue-800: #005d8b;
@@ -27,7 +29,7 @@ body {
   color: var(--ink);
   font-family: var(--font-source);
   font-size: 14px;
-  line-height: 1.45;
+  line-height: 20px;
 }
 
 a {
@@ -137,7 +139,7 @@ svg {
   border: 0;
   background: transparent;
   color: #667085;
-  font-family: "Source Sans Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font-source);
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
@@ -231,7 +233,7 @@ svg {
   border-radius: 999px;
   background: linear-gradient(180deg, rgba(185, 207, 225, 0.5), rgba(208, 213, 221, 0.5));
   color: #475467;
-  font-family: "Source Sans Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font-source);
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
@@ -246,7 +248,7 @@ svg {
   gap: 2px;
   white-space: nowrap;
   color: rgba(0, 0, 0, 0.6);
-  font-family: "Open Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font-open);
   font-size: 14px;
   line-height: 20px;
 }
@@ -329,7 +331,7 @@ svg {
 .support-home-card h2 {
   margin: 0;
   color: #344054;
-  font-family: "Source Sans Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font-source);
   font-size: 18px;
   line-height: 28px;
   font-weight: 600;
@@ -338,7 +340,7 @@ svg {
 .support-home-card p {
   margin: 0;
   color: #344054;
-  font-family: "Source Sans Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font-source);
   font-size: 14px;
   line-height: 20px;
 }
@@ -348,7 +350,7 @@ svg {
   min-height: 36px;
   padding: 8px 0;
   color: #004770;
-  font-family: "Source Sans Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font-source);
   font-size: 14px;
   line-height: 20px;
   font-weight: 600;
@@ -372,7 +374,7 @@ svg {
   padding: 10px 14px;
   border-radius: 6px;
   color: #667085;
-  font-family: "Source Sans Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font-source);
   font-size: 16px;
   font-weight: 600;
   line-height: 24px;
@@ -433,7 +435,7 @@ svg {
   padding: 8px 12px;
   border-radius: 6px;
   color: #667085;
-  font-family: "Source Sans Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font-source);
   font-size: 14px;
   font-weight: 600;
   line-height: 20px;
@@ -551,7 +553,7 @@ svg {
   align-items: center;
   text-align: center;
   color: #333333;
-  font-family: "Source Sans Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font-source);
 }
 
 .empty-course-state h3 {
@@ -909,7 +911,7 @@ svg {
   padding: 10px 16px;
   border-radius: 8px;
   box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
-  font-family: "Source Sans Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font-source);
   font-size: 14px;
   line-height: 20px;
   font-weight: 600;
@@ -994,7 +996,7 @@ svg {
   grid-template-columns: auto 1fr auto;
   gap: 12px;
   align-items: start;
-  font-family: "Source Sans Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font-source);
 }
 
 .success-toast__icon {
@@ -1430,7 +1432,7 @@ svg {
   margin: 12px 0 0 40px;
   max-width: 700px;
   color: #344054;
-  font-family: var(--font-open);
+  font-family: var(--font-source);
   font-size: 16px;
   line-height: 26px;
 }
@@ -1678,7 +1680,7 @@ svg {
 .decision-modal h2 {
   margin: 0 0 4px;
   color: #101828;
-  font-family: "Source Sans Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font-source);
   font-size: 18px;
   line-height: 28px;
   font-weight: 600;
@@ -1687,7 +1689,7 @@ svg {
 .decision-modal p {
   margin: 0;
   color: #394452;
-  font-family: Inter, "Source Sans Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font-source);
   font-size: 14px;
   line-height: 20px;
 }
