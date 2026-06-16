@@ -713,11 +713,11 @@ function renderHome() {
         <section class="main-content">
           <h1>Welcome, Jane!</h1>
           ${responsiveGettingStarted}
+          ${desktopGettingStarted}
           ${horizontalTabs(data.selected)}
           <section class="content-section" aria-labelledby="courses-heading">
             <h2 id="courses-heading">${data.eyebrow}</h2>
             ${intro}
-            ${desktopGettingStarted}
             <div class="card-stack">
               ${data.courses.map(courseCard).join("")}
             </div>
