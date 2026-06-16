@@ -15,6 +15,8 @@ const icons = {
     '<svg viewBox="0 0 20 20" aria-hidden="true"><path transform="translate(2.5 .833)" d="M9.167 1.058V4.5c0 .467 0 .7.091.878.08.157.207.285.364.364.178.091.411.091.878.091h3.442M4.167 11.667v2.5M10.833 10v4.167M7.5 7.917v6.25M14.167 7.49V13.5c0 1.4 0 2.1-.273 2.635a2.5 2.5 0 0 1-1.092 1.093c-.535.272-1.235.272-2.635.272H4.833c-1.4 0-2.1 0-2.635-.272a2.5 2.5 0 0 1-1.092-1.093C.833 15.6.833 14.9.833 13.5V4.833c0-1.4 0-2.1.273-2.635a2.5 2.5 0 0 1 1.092-1.092C2.733.833 3.433.833 4.833.833H7.51c.611 0 .917 0 1.205.07.255.061.499.162.723.299.252.154.468.37.9.803l2.657 2.657c.433.432.649.648.803.9.137.224.238.468.3.723.069.288.069.594.069 1.205Z" stroke="#344054" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   chart:
     '<svg viewBox="0 0 20 20" aria-hidden="true"><path transform="translate(1.667 1.667)" d="M15.833 15.833H3.5c-.933 0-1.4 0-1.757-.181a1.667 1.667 0 0 1-.728-.729c-.182-.356-.182-.823-.182-1.756V.833M4.167 10.417v2.5M7.917 7.917v5M11.667 5.417v7.5M15.417 2.917v10" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  chartNoAxes:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 15 9 9l4.5 4.5L21 6"/><path d="M4.5 18v-4.5"/><path d="M9 18v-7"/><path d="M13.5 18v-4"/><path d="M18 18v-8"/></svg>',
   briefcase:
     '<svg viewBox="0 0 20 20" aria-hidden="true"><path transform="translate(.833 1.667)" d="M5.833 15.833V4.167c0-.775 0-1.162.086-1.48A2.5 2.5 0 0 1 7.686.919c.318-.086.706-.086 1.481-.086s1.162 0 1.48.086a2.5 2.5 0 0 1 1.768 1.767c.085.318.085.706.085 1.481v11.666M3.5 15.833h11.333c.934 0 1.4 0 1.757-.181.314-.16.569-.415.728-.729.182-.356.182-.823.182-1.756V6.833c0-.933 0-1.4-.182-1.756a1.667 1.667 0 0 0-.728-.729c-.357-.181-.823-.181-1.757-.181H3.5c-.933 0-1.4 0-1.757.181-.313.16-.568.415-.728.729-.182.356-.182.823-.182 1.756v6.334c0 .933 0 1.4.182 1.756.16.314.415.569.728.729.357.181.824.181 1.757.181Z" stroke="#1D2939" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   phone:
@@ -641,7 +643,7 @@ function supportCategories() {
 
 function supportBenefitGrid() {
   const benefits = [
-    ["Progress updates", "chart"],
+    ["Progress updates", "chartNoAxes"],
     ["Upcoming deadlines", "bell"],
     ["Important milestones", "trophy"],
     ["Support & resources", "handHeart"],
