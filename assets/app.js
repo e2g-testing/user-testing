@@ -1,5 +1,6 @@
 const courseTabs = ["Current", "Upcoming", "Previous"];
 const learner = {
+  firstName: "Sammy",
   name: "Sammy Smith",
   initials: "SS",
 };
@@ -788,7 +789,7 @@ function renderHome() {
       <div class="student-center__inner">
         ${sideNav(selectedTab)}
         <section class="main-content">
-          <h1>Welcome, ${learner.name}!</h1>
+          <h1>Welcome, ${learner.firstName}!</h1>
           ${responsiveGettingStarted}
           ${desktopGettingStarted}
           ${horizontalTabs(selectedTab)}
