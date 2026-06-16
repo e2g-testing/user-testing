@@ -1,4 +1,8 @@
 const courseTabs = ["Current", "Upcoming", "Previous"];
+const learner = {
+  name: "Sammy Smith",
+  initials: "SS",
+};
 
 const icons = {
   launch:
@@ -298,7 +302,7 @@ function header() {
         <div class="header-actions">
           <button type="button" aria-label="Search">${icon("search")}</button>
           <button class="account-trigger" type="button" aria-label="Account menu">
-            <span class="avatar" aria-hidden="true">JK</span>
+            <span class="avatar" aria-hidden="true">${learner.initials}</span>
             <span class="chevron-down" aria-hidden="true"></span>
           </button>
           <div class="contact">
@@ -546,7 +550,7 @@ function onboardingActions({ showBack = false, nextLabel = "Next", nextAction = 
 function welcomeStep() {
   return `
     <section class="onboarding-panel onboarding-panel--centered" aria-labelledby="welcome-title">
-      <h1 id="welcome-title">Welcome to ed2go, Jane!</h1>
+      <h1 id="welcome-title">Welcome to ed2go, ${learner.name}!</h1>
       <p class="onboarding-lede">Get familiar with the Student Center and learn how to access your courses, track your progress, and find the tools and resources you need to succeed.</p>
       <div class="video-frame">
         <video controls preload="metadata" src="../assets/ed2go-short-video-web.mp4">
@@ -770,7 +774,7 @@ function renderHome() {
       <div class="student-center__inner">
         ${sideNav(selectedTab)}
         <section class="main-content">
-          <h1>Welcome, Jane!</h1>
+          <h1>Welcome, ${learner.name}!</h1>
           ${responsiveGettingStarted}
           ${desktopGettingStarted}
           ${horizontalTabs(selectedTab)}
