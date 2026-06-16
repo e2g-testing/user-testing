@@ -563,7 +563,7 @@ function onboardingActions({ showBack = false, nextLabel = "Next", nextAction = 
 function welcomeStep() {
   return `
     <section class="onboarding-panel onboarding-panel--centered" aria-labelledby="welcome-title">
-      <h1 id="welcome-title">Welcome to ed2go, ${learner.name}!</h1>
+      <h1 id="welcome-title">Welcome to ed2go, ${learner.firstName}!</h1>
       <p class="onboarding-lede">Get familiar with the Student Center and learn how to access your courses, track your progress, and find the tools and resources you need to succeed.</p>
       <div class="video-frame">
         <video controls preload="metadata" src="../assets/ed2go-short-video-web.mp4">
