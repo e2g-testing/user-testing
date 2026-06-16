@@ -754,7 +754,7 @@ svg {
   border-radius: 8px;
   background: #ecfdf3;
   color: #027a48;
-  box-shadow: 0 12px 28px rgba(16, 24, 40, 0.16);
+  box-shadow: 0 6px 14px rgba(16, 24, 40, 0.08);
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 12px;
