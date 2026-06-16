@@ -1866,6 +1866,10 @@ svg {
     line-height: 32px;
   }
 
+  .main-content h1 + .responsive-course-tabs {
+    margin-top: 32px;
+  }
+
   .getting-started-card {
     border-radius: 12px;
     padding: 24px;
