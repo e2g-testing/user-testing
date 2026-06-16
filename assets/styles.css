@@ -1075,14 +1075,6 @@ svg {
   background: #005584;
 }
 
-.progress-steps li.is-before-current:not(:last-child)::after {
-  right: calc(-50% + 20px);
-}
-
-.progress-steps li.is-current:not(:last-child)::after {
-  left: calc(50% + 20px);
-}
-
 .progress-steps__marker {
   position: relative;
   z-index: 1;
@@ -1122,7 +1114,6 @@ svg {
 
 .progress-steps .is-current .progress-steps__marker {
   background: #005584;
-  box-shadow: 0 0 0 4px #f4ebff;
 }
 
 .progress-steps .is-current .progress-steps__marker::before {

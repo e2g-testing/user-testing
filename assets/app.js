@@ -508,16 +508,8 @@ function progressStepper(activeStep) {
     <ol class="progress-steps" aria-label="Getting started progress">
       ${steps
         .map((label, index) => {
-          const statusClass = [
-            index < activeStep
-              ? "is-complete"
-              : index === activeStep
-                ? "is-current"
-                : "",
-            index === activeStep - 1 ? "is-before-current" : "",
-          ]
-            .filter(Boolean)
-            .join(" ");
+          const statusClass =
+            index < activeStep ? "is-complete" : index === activeStep ? "is-current" : "";
           const marker = index < activeStep ? icon("check") : "";
           const ariaCurrent = index === activeStep ? 'aria-current="step"' : "";
 
