@@ -69,18 +69,6 @@ const prototypes = {
           { label: "Course Support", icon: "support" },
         ],
       },
-      {
-        title: "Start a Pet Sitting Business",
-        school: "",
-        image: "photo-pet",
-        imageLabel: "Student sitting outside with dogs",
-        meta: [["Access Dates", "Dec 23 2025 - Mar 23 2026"]],
-        actions: [
-          { label: "Launch", icon: "launch", primary: true },
-          { label: "Report", icon: "report" },
-          { label: "Course Support", icon: "support" },
-        ],
-      },
     ],
     resources: [
       {
@@ -96,6 +84,19 @@ const prototypes = {
         ],
       },
     ],
+  },
+};
+
+const emptyCourseStates = {
+  Upcoming: {
+    heading: "Upcoming Courses",
+    title: "You do not have any upcoming courses.",
+    body: "Our courses offer a great way to start, switch, or grow your career.",
+  },
+  Previous: {
+    heading: "Previous Courses",
+    title: "You do not have any previous courses.",
+    body: "Once your access expires, courses will move to this section.",
   },
 };
 
@@ -141,6 +142,7 @@ const defaultState = {
   supportChoice: "",
   supportOptIn: false,
   supportOptOutAcknowledged: false,
+  activeCourseTab: "Current",
   showToast: false,
   showOptOutModal: false,
 };
@@ -172,6 +174,7 @@ function loadState() {
       ...defaultState,
       ...saved,
       view: "home",
+      activeCourseTab: "Current",
       showToast: false,
       showOptOutModal: false,
     };
@@ -181,7 +184,7 @@ function loadState() {
 }
 
 function saveState() {
-  const { view, showToast, showOptOutModal, ...persistentState } = state;
+  const { view, activeCourseTab, showToast, showOptOutModal, ...persistentState } = state;
   localStorage.setItem(config.storageKey, JSON.stringify(persistentState));
 }
 
@@ -254,7 +257,7 @@ function sideNav(selected) {
           ${courseTabs
             .map((label) => {
               const current = label === selected ? 'aria-current="page"' : "";
-              return `<a ${current} href="#courses-heading">${label}</a>`;
+              return `<a ${current} href="#courses-heading" data-action="select-course-tab" data-course-tab="${label}">${label}</a>`;
             })
             .join("")}
         </nav>
@@ -406,7 +409,7 @@ function horizontalTabs(selected) {
       ${courseTabs
         .map((label) => {
           const current = label === selected ? 'aria-current="page"' : "";
-          return `<a ${current} href="#courses-heading">${label}</a>`;
+          return `<a ${current} href="#courses-heading" data-action="select-course-tab" data-course-tab="${label}">${label}</a>`;
         })
         .join("")}
     </nav>
@@ -449,6 +452,48 @@ function successToast() {
       </div>
       <button type="button" aria-label="Close notification" data-action="close-toast">${icon("close")}</button>
     </div>
+  `;
+}
+
+function emptyCourseState(courseState) {
+  return `
+    <div class="empty-course-state">
+      <h3>${courseState.title}</h3>
+      <p>${courseState.body}</p>
+      <a href="#" class="empty-course-state__link" data-action="catalog-link">View our catalog</a>
+    </div>
+  `;
+}
+
+function courseStatusContent(data, selectedTab) {
+  if (selectedTab !== "Current") {
+    const courseState = emptyCourseStates[selectedTab];
+
+    return `
+      <section class="content-section content-section--empty" aria-labelledby="courses-heading">
+        <h2 id="courses-heading">${courseState.heading}</h2>
+        ${emptyCourseState(courseState)}
+      </section>
+    `;
+  }
+
+  const intro = data.intro ? `<p class="section-copy">${data.intro}</p>` : "";
+
+  return `
+    <section class="content-section" aria-labelledby="courses-heading">
+      <h2 id="courses-heading">${data.eyebrow}</h2>
+      ${intro}
+      <div class="card-stack">
+        ${data.courses.map(courseCard).join("")}
+      </div>
+    </section>
+    <section class="content-section content-section--resources" aria-labelledby="resources-heading">
+      <h2 id="resources-heading">Additional Resources</h2>
+      <p class="section-copy">Courses come with additional resources to supplement your learning. Start these when you're ready.</p>
+      <div class="card-stack">
+        ${data.resources.map(courseCard).join("")}
+      </div>
+    </section>
   `;
 }
 
@@ -709,8 +754,8 @@ function optOutModal() {
 
 function renderHome() {
   const data = prototypes.current;
-  const intro = data.intro ? `<p class="section-copy">${data.intro}</p>` : "";
-  const showGettingStarted = state.status !== "complete";
+  const selectedTab = state.activeCourseTab || data.selected;
+  const showGettingStarted = selectedTab === "Current" && state.status !== "complete";
   const responsiveGettingStarted = showGettingStarted
     ? getStartedTile("getting-started-card--responsive", "getting-started-heading-responsive")
     : "";
@@ -723,26 +768,13 @@ function renderHome() {
     ${header()}
     <main class="student-center">
       <div class="student-center__inner">
-        ${sideNav(data.selected)}
+        ${sideNav(selectedTab)}
         <section class="main-content">
           <h1>Welcome, Jane!</h1>
           ${responsiveGettingStarted}
           ${desktopGettingStarted}
-          ${horizontalTabs(data.selected)}
-          <section class="content-section" aria-labelledby="courses-heading">
-            <h2 id="courses-heading">${data.eyebrow}</h2>
-            ${intro}
-            <div class="card-stack">
-              ${data.courses.map(courseCard).join("")}
-            </div>
-          </section>
-          <section class="content-section content-section--resources" aria-labelledby="resources-heading">
-            <h2 id="resources-heading">Additional Resources</h2>
-            <p class="section-copy">Courses come with additional resources to supplement your learning. Start these when you're ready.</p>
-            <div class="card-stack">
-              ${data.resources.map(courseCard).join("")}
-            </div>
-          </section>
+          ${horizontalTabs(selectedTab)}
+          ${courseStatusContent(data, selectedTab)}
           ${responsiveSideCards()}
         </section>
       </div>
@@ -776,6 +808,7 @@ function completeOnboarding(nextPatch = {}) {
     view: "home",
     status: "complete",
     step: 2,
+    activeCourseTab: "Current",
     showToast: true,
     showOptOutModal: false,
   };
@@ -822,9 +855,15 @@ function handleClick(event) {
       updateState({
         view: "home",
         status: "in-progress",
+        activeCourseTab: "Current",
         showToast: false,
         showOptOutModal: false,
       }, { scroll: true });
+      break;
+    case "select-course-tab":
+      updateState({
+        activeCourseTab: actionable.dataset.courseTab || "Current",
+      }, { persist: false, scroll: false });
       break;
     case "select-goal": {
       const nextGoal = actionable.dataset.goal;
