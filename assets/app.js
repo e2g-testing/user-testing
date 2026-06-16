@@ -31,10 +31,14 @@ const icons = {
     '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v3"/><path d="M12 19v3"/><path d="M2 12h3"/><path d="M19 12h3"/></svg>',
   milestone:
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18"/><path d="M6 6h9l3 3-3 3H6"/></svg>',
+  trophy:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 7H4v2a4 4 0 0 0 4 4"/><path d="M17 7h3v2a4 4 0 0 1-4 4"/></svg>',
   bell:
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9a6 6 0 0 1 12 0c0 7 3 6 3 8H3c0-2 3-1 3-8"/><path d="M10 21h4"/></svg>',
   heart:
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>',
+  handHeart:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 14h2l5-5a2.1 2.1 0 0 1 3 3l-6 6H8l-4-2.5V11h2.5l3.5 3h1"/><path d="M12 8.5 10.6 7a2.2 2.2 0 0 1 3.1-3.1L12 5.6l-1.7-1.7A2.2 2.2 0 0 1 13.4 7z"/></svg>',
 };
 
 const prototypes = {
@@ -128,6 +132,7 @@ const defaultState = {
   step: 0,
   goal: "",
   otherReason: "",
+  supportChoice: "",
   supportOptIn: false,
   showToast: false,
   showOptOutModal: false,
@@ -534,9 +539,9 @@ function goalStep() {
 function supportCategories() {
   const categories = [
     ["Progress updates", "chart"],
-    ["Important milestones", "milestone"],
+    ["Important milestones", "trophy"],
     ["Upcoming deadlines", "bell"],
-    ["Support & resources", "heart"],
+    ["Support & resources", "handHeart"],
   ];
 
   return categories
@@ -549,6 +554,30 @@ function supportCategories() {
       `,
     )
     .join("");
+}
+
+function supportBenefitGrid() {
+  const benefits = [
+    ["Progress updates", "chart"],
+    ["Upcoming deadlines", "bell"],
+    ["Important milestones", "trophy"],
+    ["Support & resources", "handHeart"],
+  ];
+
+  return benefits
+    .map(
+      ([label, iconName]) => `
+        <li class="support-choice-benefit">
+          <span>${icon(iconName)}</span>
+          <strong>${label}</strong>
+        </li>
+      `,
+    )
+    .join("");
+}
+
+function supportFinePrint() {
+  return `Message and data rates may apply. Message frequency varies. Reply STOP to opt-out, HELP for help. View our <span>Privacy Policy</span> and <span>Terms of Service</span>.`;
 }
 
 function supportStep() {
@@ -568,9 +597,66 @@ function supportStep() {
             <input type="checkbox" data-action="toggle-support" ${checked}>
             <span>Yes! Text me personalized support about my progress, important milestones, and deadlines.</span>
           </label>
-          <p class="consent-fine-print">Message and data rates may apply. Message frequency varies. Reply STOP to opt-out, HELP for help. View our Privacy Policy and Terms of Service.</p>
+          <p class="consent-fine-print">${supportFinePrint()}</p>
         </div>
         <div class="support-card__image" aria-hidden="true">
+          <img src="../assets/student-services-phone.png" alt="">
+        </div>
+      </div>
+      ${onboardingActions({ showBack: true, nextLabel: "Finish", nextAction: "finish-support" })}
+    </section>
+  `;
+}
+
+function supportChoiceCard(choice, title, body, options = {}) {
+  const selected = state.supportChoice === choice;
+  const checked = selected ? "checked" : "";
+  const selectedClass = selected ? "is-selected" : "";
+  const compactClass = options.compact ? "support-choice-card--compact" : "";
+  const details = options.details || "";
+
+  return `
+    <label class="support-choice-card ${compactClass} ${selectedClass}" role="radio" aria-checked="${selected}">
+      <span class="support-choice-card__copy">
+        <span class="support-choice-card__title">${title}</span>
+        <span class="support-choice-card__body">${body}</span>
+        ${details}
+      </span>
+      <input class="support-choice-card__input" type="radio" name="support-choice" value="${choice}" data-support-choice="${choice}" ${checked}>
+      <span class="support-choice-radio" aria-hidden="true"></span>
+    </label>
+  `;
+}
+
+function selectableSupportStep() {
+  const textSupportDetails = `
+    <span class="support-choice-card__prompt">You'll receive:</span>
+    <ul class="support-choice-benefits">
+      ${supportBenefitGrid()}
+    </ul>
+    <span class="support-choice-fine-print">${supportFinePrint()}</span>
+  `;
+
+  return `
+    <section class="onboarding-panel onboarding-panel--wide" aria-labelledby="support-title">
+      <h1 id="support-title">Connect with Student Services</h1>
+      <p class="onboarding-lede onboarding-lede--support-choice">Stay on track by unlocking direct, personalized text support from Student Services. Learners who receive support from Student Services are significantly more likely to complete their course.</p>
+      <div class="support-choice-layout">
+        <div class="support-choice-list" role="radiogroup" aria-label="Student Services text support options">
+          ${supportChoiceCard(
+            "text",
+            "Enable text support",
+            "Yes! Text me personalized support about my progress, important milestones, and deadlines.",
+            { details: textSupportDetails },
+          )}
+          ${supportChoiceCard(
+            "email",
+            "No, thanks",
+            "I'll receive important updates by email instead.",
+            { compact: true },
+          )}
+        </div>
+        <div class="support-choice-visual" aria-hidden="true">
           <img src="../assets/student-services-phone.png" alt="">
         </div>
       </div>
@@ -589,7 +675,7 @@ function optOutModal() {
       <section class="decision-modal" role="dialog" aria-modal="true" aria-labelledby="decision-modal-title">
         <span class="decision-modal__icon">${icon("info")}</span>
         <h2 id="decision-modal-title">Did you know?</h2>
-        <p>Learners who receive reminders from Student Services are significantly more likely to complete their course.</p>
+        <p>Learners who receive support from Student Services are significantly more likely to complete their course.</p>
         <div class="decision-modal__actions">
           <button class="button button--primary" type="button" data-action="keep-opted-in">Keep me opted in</button>
           <button class="button button--secondary" type="button" data-action="decline-support">No, thanks. I'll manage on my own.</button>
@@ -644,7 +730,8 @@ function renderHome() {
 }
 
 function renderOnboarding() {
-  const steps = [welcomeStep, goalStep, supportStep];
+  const thirdStep = prototypeKey === "c" ? selectableSupportStep : supportStep;
+  const steps = [welcomeStep, goalStep, thirdStep];
   const activeStep = Math.min(Math.max(state.step, 0), steps.length - 1);
 
   appRoot.innerHTML = `
@@ -733,10 +820,10 @@ function handleClick(event) {
       completeOnboarding();
       break;
     case "keep-opted-in":
-      completeOnboarding({ supportOptIn: true });
+      completeOnboarding({ supportChoice: "text", supportOptIn: true });
       break;
     case "decline-support":
-      completeOnboarding({ supportOptIn: false });
+      completeOnboarding({ supportChoice: "email", supportOptIn: false });
       break;
     case "close-toast":
       updateState({ showToast: false }, { persist: false, scroll: false });
@@ -768,11 +855,25 @@ function handleInput(event) {
 }
 
 function handleChange(event) {
+  if (event.target.matches("[data-support-choice]")) {
+    const supportChoice = event.target.dataset.supportChoice;
+    updateState({
+      supportChoice,
+      supportOptIn: supportChoice === "text",
+      showOptOutModal: false,
+    });
+    return;
+  }
+
   if (!event.target.matches('[data-action="toggle-support"]')) {
     return;
   }
 
-  state = { ...state, supportOptIn: event.target.checked };
+  state = {
+    ...state,
+    supportChoice: event.target.checked ? "text" : "",
+    supportOptIn: event.target.checked,
+  };
   saveState();
 }
 
