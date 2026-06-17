@@ -641,7 +641,7 @@ function supportStep() {
   return `
     <section class="onboarding-panel onboarding-panel--wide onboarding-panel--support" aria-labelledby="support-title">
       <h1 id="support-title">Connect with Student Services</h1>
-      <p class="onboarding-lede">Unlock direct, personalized guidance from Student Services to help you stay on track and reach your goals.</p>
+      <p class="onboarding-lede">Unlock direct, personalized guidance from Student Services to help you<br>stay on track and reach your goals.</p>
       <div class="support-card">
         <div class="support-card__copy">
           <h2>Receive helpful messages about:</h2>
