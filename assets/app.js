@@ -384,7 +384,7 @@ function getStartedTile(modifier = "", headingId = "getting-started-heading") {
     <article class="${classes}" aria-labelledby="${headingId}">
       <div class="getting-started-card__copy">
         <h3 id="${headingId}">Start Your Learning Experience</h3>
-        <p>Every journey starts with a strong beginning. Learn how the Student Center works, set a goal for yourself to help you stay motivated, and choose how you'd like to stay on track.</p>
+        <p>Take a few quick steps to get oriented, set a goal, and choose your support preferences.</p>
       </div>
       <button class="button button--primary" type="button" data-action="start-onboarding">
         <span>${ctaLabel}</span>
