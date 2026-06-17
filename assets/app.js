@@ -861,7 +861,7 @@ function handleClick(event) {
       break;
     }
     case "finish-support":
-      if (prototypeKey !== "c" && !state.supportOptIn) {
+      if (config.supportMode === "modal" && !state.supportOptIn) {
         updateState({ showOptOutModal: true }, { scroll: false });
         return;
       }
